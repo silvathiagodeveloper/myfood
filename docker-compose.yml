@@ -10,7 +10,7 @@ services:
     php:
         build:
             context: .
-            dockerfile: PHP.Dockerfile
+            dockerfile: ./docker/PHP.Dockerfile
         volumes:
             - ./app:/app
         env_file:
@@ -20,7 +20,7 @@ services:
         env_file: .env
         volumes:
         - mysqldata:/var/lib/mysql
-        - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+        - ./docker/init.sh:/docker-entrypoint-initdb.d/init.sh
         ports:
             - 3306:3306
 volumes:
