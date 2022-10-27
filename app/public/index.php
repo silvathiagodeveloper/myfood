@@ -1,6 +1,6 @@
 <?php
 
-$pdo = new PDO("mysql:dbname=".getenv("MYSQL_DB").";host=mysql", getenv("MYSQL_USER"), getenv("MYSQL_PASS"), [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+$pdo = new PDO("mysql:dbname=".getenv("MYSQL_DATABASE").";host=mysql", getenv("MYSQL_USER"), getenv("MYSQL_PASSWORD"), [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
 $query = $pdo->query('SHOW VARIABLES like "version"');
 
