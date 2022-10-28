@@ -8,6 +8,14 @@ services:
         volumes:
             - ./docker/nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./app:/app
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
     php:
         container_name: php
         build:
@@ -17,6 +25,29 @@ services:
             - ./app:/app
         env_file:
             - .env
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin:latest
+        environment:
+            PMA_ARBITRARY: "1"
+        ports: 
+            - "8080:80"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
     mysql:
         container_name: mysql
         image: mariadb:latest
@@ -27,5 +58,13 @@ services:
         - ./docker/init.sh:/docker-entrypoint-initdb.d
         ports:
             - 3306:3306
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
 volumes:
     mysqldata: {}
