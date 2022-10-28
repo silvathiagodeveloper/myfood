@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Admin;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use Database\Seeders\Admin\PlanSeeder;
+use App\Models\Admin\Plan;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class PlanSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -16,10 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(
-            [
-                PlanSeeder::class
-            ]
-        ); 
+        Plan::factory(3)->create();
     }
 }

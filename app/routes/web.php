@@ -3,18 +3,13 @@
 use App\Http\Controllers\Admin\PlanController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('admin/plans', [PlanController::class, 'index'])->name('plans.index');
+Route::prefix('admin')->group(function () {
+    Route::get('plans', [PlanController::class, 'index'])->name('plans.index');
+    Route::get('plans/{url}', [PlanController::class, 'show'])->name('plans.show');
+    Route::get('plans/create', [PlanController::class, 'create'])->name('plans.create');
+    Route::post('plans', [PlanController::class, 'store'])->name('plans.store');
+    Route::delete('plans/{id}', [PlanController::class, 'destroy'])->name('plans.destroy');
+});
 
 Route::get('/', function () {
     return view('welcome');
