@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdatePlanRequest;
 use App\Interfaces\Admin\PlanRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class PlanController extends Controller
 {
@@ -24,14 +24,23 @@ class PlanController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $plans = $this->repository->search($request->filter,6);
+        $filters = $request->except('_token');
+        return view('admin.pages.plans.index', [
+            'plans' => $plans,
+            'filters' => $filters
+        ]);
+    }
+
     public function create()
     {
         return view('admin.pages.plans.create');
     }
 
-    public function store(Request $request) 
+    public function store(StoreUpdatePlanRequest $request) 
     {
-        $request->request->add(['url' => Str::kebab($request->input('name'))]);
         $model = $this->repository->create($request->all());
 
         return redirect()->route('plans.index');
@@ -48,6 +57,22 @@ class PlanController extends Controller
     public function destroy($url) 
     {
         $this->repository->delete($url);
+
+        return redirect()->route('plans.index');
+    }
+
+    public function edit($url) 
+    {
+        $plan = $this->repository->getByUrl($url);
+
+        return view('admin.pages.plans.edit',[
+            'plan' => $plan
+        ]);
+    }
+
+    public function update(StoreUpdatePlanRequest $request, int $id) 
+    {
+        $this->repository->update($id, $request->except(['_token','_method']));
 
         return redirect()->route('plans.index');
     }

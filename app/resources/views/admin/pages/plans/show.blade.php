@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "Plano - {{ $plan->name }}")
+@section('title', "Plano - {$plan->name}")
 
 @section('content_header')
     <h1>Plano - <b>{{ $plan->name }}</b></h1>
@@ -26,7 +26,7 @@
             <form action="{{ route('plans.destroy', $plan->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" id="btnDelete" class="btn btn-danger">Apagar</button>
+                <button type="submit" id="btnDelete" class="btn btn-danger"><i class="fas fa-trash"></i> Apagar</button>
             </form>
         </div>
     </div>

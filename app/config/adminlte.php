@@ -300,7 +300,7 @@ return [
             'text' => 'Planos',
             'url'  => 'admin/plans',
             'icon_color' => 'yellow',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-list-alt',
         ],
         [
             'text' => 'change_password',

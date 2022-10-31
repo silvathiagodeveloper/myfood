@@ -7,4 +7,6 @@ use App\Interfaces\BaseRepositoryInterface;
 interface PlanRepositoryInterface extends BaseRepositoryInterface
 {
     public function getByUrl(string $url);
+
+    public function search(string $fiter = null, int $qtty = 15);
 }

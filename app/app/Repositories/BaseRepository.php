@@ -39,6 +39,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function update(int $id, array $newDetails) 
     {
-        return $this->modelName::whereId($id)->update($newDetails);
+        return $this->modelName::findOrFail($id)->update($newDetails);
     }
 }
