@@ -10,4 +10,9 @@ class Plan extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'url', 'price', 'description'];
+
+    public function details()
+    {
+        return $this->hasMany(DetailPlan::class);
+    }
 }
