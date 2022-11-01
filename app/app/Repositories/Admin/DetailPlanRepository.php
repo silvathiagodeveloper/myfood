@@ -13,9 +13,15 @@ class DetailPlanRepository extends BaseRepository implements DetailPlanRepositor
         $this->modelName = DetailPlan::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(int $planId, string $filter = null, int $qtty = 15) 
     {
-        return $this->modelName::where('name','LIKE', "%{$filter}%")
+        return $this->modelName::where('plan_id', $planId)
+                    ->where('name','LIKE', "%{$filter}%")
                     ->paginate($qtty);
+    }
+
+    public function getAllByPlanId(int $planId, int $qtty = 15)
+    {
+        return $this->modelName::where('plan_id',$planId)->paginate($qtty);
     }
 }

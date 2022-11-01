@@ -6,5 +6,7 @@ use App\Interfaces\BaseRepositoryInterface;
 
 interface DetailPlanRepositoryInterface extends BaseRepositoryInterface
 {
-    public function search(string $fiter = null, int $qtty = 15);
+    public function search(int $planId, string $filter = null, int $qtty = 15);
+
+    public function getAllByPlanId(int $planId, int $qtty = 15);
 }

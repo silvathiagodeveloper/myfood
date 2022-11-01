@@ -15,6 +15,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
+            @include('admin.includes.alerts')
             <form action="{{ route('plans.search') }}" method="post">
                 @csrf
                 <div class="input-group input-group-sm">
@@ -38,8 +39,8 @@
                     <tr>
                         <td>{{ $detail->name }}</td>
                         <td style="width: 190px;">
-                            <a href="{{ route('plans.show',$detail->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                            <a href="{{ route('plans.edit',$detail->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+                            <a href="{{ route('details.plans.show', [$plan->url, $detail->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
+                            <a href="{{ route('details.plans.edit', [$plan->url, $detail->id]) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
                         </td>
                     </tr>
                     @endforeach
