@@ -13,6 +13,7 @@ Route::prefix('admin')->group(function () {
     /**
      * DetailPlans Routes
      */
+    Route::any('plans/{url}/search', [DetailPlanController::class, 'search'])->name('details.plans.search');
     Route::get('plans/{url}/details', [DetailPlanController::class, 'index'])->name('details.plans.index');
     Route::get('plans/{url}/details/create', [DetailPlanController::class, 'create'])->name('details.plans.create');
     Route::post('plans/{url}/details', [DetailPlanController::class, 'store'])->name('details.plans.store');

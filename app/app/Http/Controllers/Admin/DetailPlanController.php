@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateDetailPlanRequest;
 use App\Interfaces\Admin\DetailPlanRepositoryInterface;
 use App\Interfaces\Admin\PlanRepositoryInterface;
+use Illuminate\Http\Request;
 
 class DetailPlanController extends Controller
 {
@@ -25,6 +26,18 @@ class DetailPlanController extends Controller
         return view('admin.pages.plans.details.index',[
             'plan' => $plan,
             'details' => $details
+        ]);
+    }
+
+    public function search(Request $request, string $urlPlan)
+    {
+        $plan = $this->planRepository->getByUrl($urlPlan);
+        $details = $this->repository->search($plan->id,$request->filter,config('constants.max_paginate'));
+        $filters = $request->except('_token');
+        return view('admin.pages.plans.details.index', [
+            'plan' => $plan,
+            'details' => $details,
+            'filters' => $filters
         ]);
     }
 
