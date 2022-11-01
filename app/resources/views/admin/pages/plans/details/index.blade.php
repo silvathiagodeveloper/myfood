@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-header">
             @include('admin.includes.alerts')
-            <form action="{{ route('plans.search') }}" method="post">
+            <form action="{{ route('details.plans.search', $plan->url) }}" method="post">
                 @csrf
                 <div class="input-group input-group-sm">
                     <input type="text" name="filter" id="filter" placeholder="Nome" class="form-control" value="{{ $filters['filter'] ?? '' }}">
