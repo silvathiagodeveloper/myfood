@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreUpdateProfileRequest;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
-use App\Models\Admin\Profile;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

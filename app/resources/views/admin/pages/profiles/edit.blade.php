@@ -3,6 +3,12 @@
 @section('title', "Perfil {$profile->name}")
 
 @section('content_header')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('profiles.show', $profile->id) }}">{{ $profile->name }}</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('profiles.edit', [$profile->id]) }}">Editar</a></li>
+    </ol>
     <h1>Perfil - {{ $profile->name }}</h1>
 @stop
 
