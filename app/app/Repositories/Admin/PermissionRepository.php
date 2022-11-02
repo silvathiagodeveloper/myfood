@@ -20,4 +20,13 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
                     ->orWhere('description','LIKE', "%{$filter}%")
                     ->paginate($qtty);
     }
+
+    public function getByProfileId(int $profileId, int $qtty = 15)
+    {
+        return $this->modelName::whereNotIn('id', function($query) use ($profileId) {
+            $query->select('profile_permission.permission_id') 
+                  ->from('profile_permission')
+                  ->where('profile_permission.profile_id', $profileId);
+        })->paginate($qtty);
+    }
 }

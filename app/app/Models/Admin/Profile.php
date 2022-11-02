@@ -10,4 +10,12 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
+
+    /**
+     * Get Permissions
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'profile_permission');
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlanController;
@@ -39,14 +40,14 @@ Route::prefix('admin')->group(function () {
     /**
      * Profiles Routes
      */
-    Route::any('profiles/search',       [ProfileController::class, 'search']    )->name('profiles.search');
-    Route::get('profiles',              [ProfileController::class, 'index']     )->name('profiles.index');
-    Route::get('profiles/create',       [ProfileController::class, 'create']    )->name('profiles.create');
-    Route::post('profiles',             [ProfileController::class, 'store']     )->name('profiles.store');
-    Route::put('profiles/{url}',        [ProfileController::class, 'update']    )->name('profiles.update');
-    Route::get('profiles/{url}',        [ProfileController::class, 'show']      )->name('profiles.show');
-    Route::get('profiles/{url}/edit',   [ProfileController::class, 'edit']      )->name('profiles.edit');
-    Route::delete('profiles/{id}',      [ProfileController::class, 'destroy']   )->name('profiles.destroy');
+    Route::any('profiles/search',           [ProfileController::class, 'search']    )->name('profiles.search');
+    Route::get('profiles',                  [ProfileController::class, 'index']     )->name('profiles.index');
+    Route::get('profiles/create',           [ProfileController::class, 'create']    )->name('profiles.create');
+    Route::post('profiles',                 [ProfileController::class, 'store']     )->name('profiles.store');
+    Route::put('profiles/{url}',            [ProfileController::class, 'update']    )->name('profiles.update');
+    Route::get('profiles/{url}',            [ProfileController::class, 'show']      )->name('profiles.show');
+    Route::get('profiles/{url}/edit',       [ProfileController::class, 'edit']      )->name('profiles.edit');
+    Route::delete('profiles/{id}',          [ProfileController::class, 'destroy']   )->name('profiles.destroy');
 
     /**
      * Permissions Routes
@@ -59,6 +60,18 @@ Route::prefix('admin')->group(function () {
     Route::get('permissions/{url}',         [PermissionController::class, 'show']      )->name('permissions.show');
     Route::get('permissions/{url}/edit',    [PermissionController::class, 'edit']      )->name('permissions.edit');
     Route::delete('permissions/{id}',       [PermissionController::class, 'destroy']   )->name('permissions.destroy');
+
+    /**
+     * Profiles Permissions Routes
+     */
+    Route::any('profiles/{id}/permissions/search', [ProfilePermissionController::class, 'search']    )->name('profiles.permissions.search');
+    Route::get('profiles/{id}/permissions',        [ProfilePermissionController::class, 'permissions'])->name('profiles.permissions.index');
+    Route::get('profiles/{id}/permissions/create', [ProfilePermissionController::class, 'permissionsAvailable'])->name('profiles.permissions.create');
+    Route::post('profiles/{id}/permissions',       [ProfilePermissionController::class, 'permissionsAttach']     )->name('profiles.permissions.store');
+//    Route::put('profiles/{url}',            [ProfileController::class, 'update']    )->name('profiles.permissions.update');
+//    Route::get('profiles/{url}',            [ProfileController::class, 'show']      )->name('profiles.permissions.show');
+//    Route::get('profiles/{url}/edit',       [ProfileController::class, 'edit']      )->name('profiles.permissions.edit');
+//    Route::delete('profiles/{id}',          [ProfileController::class, 'destroy']   )->name('profiles.permissions.destroy');
 });
 
 Route::get('/', function () {
