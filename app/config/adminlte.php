@@ -306,6 +306,12 @@ return [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
             'icon_color' => 'yellow',
+            'icon' => 'fas fa-tags',
+        ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+            'icon_color' => 'yellow',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
