@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Admin\DetailPlanSeeder;
 use Database\Seeders\Admin\PlanSeeder;
+use Database\Seeders\Admin\ProfileSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 PlanSeeder::class,
-                DetailPlanSeeder::class
+                DetailPlanSeeder::class,
+                ProfileSeeder::class
             ]
         ); 
     }

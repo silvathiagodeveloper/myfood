@@ -6,7 +6,6 @@ use App\Exceptions\PlanWithDetailsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdatePlanRequest;
 use App\Interfaces\Admin\PlanRepositoryInterface;
-use Exception;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller

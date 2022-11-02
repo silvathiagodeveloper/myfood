@@ -21,7 +21,8 @@ class PlanRepository extends BaseRepository implements PlanRepositoryInterface
 
     public function search(string $filter = null, int $qtty = 15) 
     {
-        return $this->modelName::where('name','LIKE', "%{$filter}%")
+        return $this->modelName::latest()
+                    ->where('name','LIKE', "%{$filter}%")
                     ->orWhere('description','LIKE', "%{$filter}%")
                     ->paginate($qtty);
     }

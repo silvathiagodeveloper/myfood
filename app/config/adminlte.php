@@ -304,7 +304,7 @@ return [
         ],
         [
             'text' => 'Perfis',
-            'url'  => 'admin/plans',
+            'url'  => 'admin/profiles',
             'icon_color' => 'yellow',
             'icon' => 'fas fa-fw fa-lock',
         ],
