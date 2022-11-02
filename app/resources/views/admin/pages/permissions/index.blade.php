@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('permissions.index') }}">Permissões</a></li>
     </ol>
-    <h1>Permissões <a href="{{ route('permissions.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adiconar</a></h1>
+    <h1>Permissões <a href="{{ route('permissions.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
 @stop
 
 @section('content')
