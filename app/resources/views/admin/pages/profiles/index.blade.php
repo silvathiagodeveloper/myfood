@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}">Perfis</a></li>
     </ol>
-    <h1>Perfis <a href="{{ route('profiles.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adiconar</a></h1>
+    <h1>Perfis <a href="{{ route('profiles.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
 @stop
 
 @section('content')
@@ -35,9 +35,10 @@
                     @foreach($profiles as $profile)
                     <tr>
                         <td>{{ $profile->name }}</td>
-                        <td style="width: 190px;">
+                        <td style="width:350px;">
                             <a href="{{ route('profiles.show',$profile->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
                             <a href="{{ route('profiles.edit',$profile->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+                            <a href="{{ route('profiles.permissions.index',$profile->id) }}" class="btn btn-warning"><i class="fas fa-fw fa-lock"></i> Permissões</a>
                         </td>
                     </tr>
                     @endforeach
