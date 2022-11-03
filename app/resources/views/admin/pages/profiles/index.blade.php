@@ -38,7 +38,7 @@
                         <td style="width:350px;">
                             <a href="{{ route('profiles.show',$profile->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
                             <a href="{{ route('profiles.edit',$profile->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{{ route('profiles.permissions.index',$profile->id) }}" class="btn btn-warning"><i class="fas fa-fw fa-lock"></i> Permissões</a>
+                            <a href="{{ route('profiles.permissions',$profile->id) }}" class="btn btn-warning"><i class="fas fa-fw fa-lock"></i> Permissões</a>
                         </td>
                     </tr>
                     @endforeach

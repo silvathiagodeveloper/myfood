@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
         <li class="breadcrumb-item"><a href="{{ route('profiles.show', $profile->id) }}">{{ $profile->name }}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('profiles.permissions.index', $profile->id) }}">Permissões</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('profiles.permissions', $profile->id) }}">Permissões</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('profiles.permissions.create', $profile->id) }}">Novo</a></li>
     </ol>
     <h1>Vincular Permissões ao Perfil {{ $profile->name }}</h1>
@@ -15,9 +15,20 @@
 
 @section('content')
     <div class="card">
+        <div class="card-header">
+            <form action="{{ route('profiles.permissions.create', $profile->id) }}" method="post">
+                @csrf
+                <div class="input-group input-group-sm">
+                    <input type="text" name="filter" id="filter" placeholder="Nome" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+                    <span class="input-group-append">
+                        <button type="submit" class="btn btn-dark btn-flat"><i class="fas fa-search fa-fw"></i></button>
+                    </span>
+                </div>
+            </form>
+        </div>
         <div class="card-body">
             @include('admin.includes.alerts')
-            <form id="frmMain" action="{{ route('profiles.permissions.store', $profile->id) }}" class="form" method="POST">
+            <form id="frmMain" action="{{ route('profiles.permissions.attach', $profile->id) }}" class="form" method="POST">
                 @csrf
                 @foreach($permissions as $permission) 
                     <div class="form-check">

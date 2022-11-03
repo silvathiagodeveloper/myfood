@@ -62,16 +62,15 @@ Route::prefix('admin')->group(function () {
     Route::delete('permissions/{id}',       [PermissionController::class, 'destroy']   )->name('permissions.destroy');
 
     /**
-     * Profiles Permissions Routes
+     * Profiles Profile X Permissions Routes
      */
-    Route::any('profiles/{id}/permissions/search', [ProfilePermissionController::class, 'search']    )->name('profiles.permissions.search');
-    Route::get('profiles/{id}/permissions',        [ProfilePermissionController::class, 'permissions'])->name('profiles.permissions.index');
-    Route::get('profiles/{id}/permissions/create', [ProfilePermissionController::class, 'permissionsAvailable'])->name('profiles.permissions.create');
-    Route::post('profiles/{id}/permissions',       [ProfilePermissionController::class, 'permissionsAttach']     )->name('profiles.permissions.store');
-//    Route::put('profiles/{url}',            [ProfileController::class, 'update']    )->name('profiles.permissions.update');
-//    Route::get('profiles/{url}',            [ProfileController::class, 'show']      )->name('profiles.permissions.show');
-//    Route::get('profiles/{url}/edit',       [ProfileController::class, 'edit']      )->name('profiles.permissions.edit');
-//    Route::delete('profiles/{id}',          [ProfileController::class, 'destroy']   )->name('profiles.permissions.destroy');
+    Route::any('profiles/{id}/permissions/search', [ProfilePermissionController::class, 'searchPermissions']    )->name('profiles.permissions.search');
+    Route::get('profiles/{id}/permissions',        [ProfilePermissionController::class, 'permissions']          )->name('profiles.permissions');
+    Route::any('profiles/{id}/permissions/create', [ProfilePermissionController::class, 'permissionsAvailable'] )->name('profiles.permissions.create');
+    Route::post('profiles/{id}/permissions',       [ProfilePermissionController::class, 'permissionsAttach']    )->name('profiles.permissions.attach');
+    Route::get('profiles/{id}/permissions/{permission}/detach', [ProfilePermissionController::class, 'permissionsDetach'])->name('profiles.permissions.detach');
+    Route::any('permissions/{id}/profiles/search', [ProfilePermissionController::class, 'searchProfiles']       )->name('permissions.profiles.search');
+    Route::get('permissions/{id}/profiles',        [ProfilePermissionController::class, 'profiles']             )->name('permissions.profiles');
 });
 
 Route::get('/', function () {

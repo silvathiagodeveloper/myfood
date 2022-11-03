@@ -31,25 +31,50 @@ class ProfilePermissionController extends Controller
         ]);
     }
 
-    public function search(Request $request, int $idProfile)
+    public function profiles(int $idPermission)
     {
-        $profile = $this->profileRepository->getById($idProfile);
-        $permissions = $this->profileRepository->getPermissionsPaginate($profile, config('constants.max_paginate'));
+        $permission = $this->permissionRepository->getById($idPermission);
+        $profiles = $this->permissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'));
 
-        return view('admin.pages.profiles.permissions.index',[
-            'profile' => $profile,
-            'permissions' => $permissions
+        return view('admin.pages.profiles.permissions.profiles',[
+            'permission' => $permission,
+            'profiles' => $profiles
         ]);
     }
 
-    public function permissionsAvailable(int $idProfile)
+    public function searchPermissions(Request $request, int $idProfile)
     {
         $profile = $this->profileRepository->getById($idProfile);
-        $permissions = $this->permissionRepository->getByProfileId($idProfile, config('constants.max_paginate'));
+        $permissions = $this->profileRepository->getPermissionsPaginate($profile, config('constants.max_paginate'), $request->filter ?? null);
+
+        return view('admin.pages.profiles.permissions.index',[
+            'profile' => $profile,
+            'permissions' => $permissions,
+            'filters' => ['filter' => $request->filter ?? null]
+        ]);
+    }
+
+    public function searchProfiles(Request $request, int $idPermission)
+    {
+        $permission = $this->permissionRepository->getById($idPermission);
+        $profiles = $this->permissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'), $request->filter ?? null);
+
+        return view('admin.pages.profiles.permissions.profiles',[
+            'permission' => $permission,
+            'profiles' => $profiles,
+            'filters' => ['filter' => $request->filter ?? null]
+        ]);
+    }
+
+    public function permissionsAvailable(Request $request, int $idProfile)
+    {
+        $profile = $this->profileRepository->getById($idProfile);
+        $permissions = $this->permissionRepository->getByProfileId($idProfile, config('constants.max_paginate'), $request->filter ?? null);
 
         return view('admin.pages.profiles.permissions.create', [
-                'profile' => $profile,
-                'permissions' => $permissions
+            'profile' => $profile,
+            'permissions' => $permissions,
+            'filters' => ['filter' => $request->filter ?? null]
         ]);
     }
 
@@ -57,56 +82,17 @@ class ProfilePermissionController extends Controller
     {
         try {
             $this->profileRepository->attachPermissions($idProfile, $request->input('permissions') ?? []);
-            return redirect()->route('profiles.permissions.index', $idProfile);
+            return redirect()->route('profiles.permissions', $idProfile);
         } catch(EmptyArrayException $err) {
             return redirect()->back()
                              ->withErrors(['Pelo menos uma permissão deve ser selecionada!']);
         }
     }
 
-    public function permissionsDetach(Request $request, int $idProfile)
+    public function permissionsDetach(int $idProfile, int $idPermission)
     {
-        //$this->profileRepository->detachPermissions($idProfile, $request->input('permission_id') ?? []);
+        $this->profileRepository->detachPermissions($idProfile, [$idPermission]);
 
-        return redirect()->route('profiles.permissions.index', $idProfile);
-    }
-
-
-
-
-
-
-
-
-
-    public function show($id) 
-    {
-        $profile = $this->repository->getById($id);
-        return view('admin.pages.profiles.show',[
-            'profile' => $profile
-        ]);
-    }
-
-    public function destroy($id) 
-    {
-        $this->repository->delete($id);
-
-        return redirect()->route('profiles.index');
-    }
-
-    public function edit($id) 
-    {
-        $profile = $this->repository->getById($id);
-
-        return view('admin.pages.profiles.edit',[
-            'profile' => $profile
-        ]);
-    }
-
-    public function update(StoreUpdateProfileRequest $request, int $id) 
-    {
-        $this->repository->update($id, $request->except(['_token','_method']));
-
-        return redirect()->route('profiles.index');
+        return redirect()->route('profiles.permissions', $idProfile);
     }
 }

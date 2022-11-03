@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('profiles.permissions.index', $profile->id) }}">{{ $profile->name }}</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('profiles.permissions', $profile->id) }}">{{ $profile->name }}</a></li>
     </ol>
     <h1>Permissões do Perfil {{ $profile->name }}<a href="{{ route('profiles.permissions.create', $profile->id) }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
 @stop
@@ -36,8 +36,8 @@
                     @foreach($permissions as $permission)
                     <tr>
                         <td>{{ $permission->name }}</td>
-                        <td style="width:350px;">
-                            <a href="{{ route('profiles.edit',$permission->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+                        <td style="width:150px;">
+                            <a href="{{ route('profiles.permissions.detach', [$profile->id, $permission->id]) }}" class="btn btn-danger"><i class="fas fa-unlink"></i> Desvincular</a>
                         </td>
                     </tr>
                     @endforeach

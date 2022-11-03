@@ -28,9 +28,13 @@ class ProfileRepository extends BaseRepository implements ProfileRepositoryInter
         return $profile->permissions();
     }
 
-    public function getPermissionsPaginate(Profile $profile, int $qtty = 15) 
+    public function getPermissionsPaginate(Profile $profile, int $qtty = 15, string $filter = null) 
     {
-        return $profile->permissions()->paginate($qtty);
+        $return = $profile->permissions();
+        if(isset($filter)) {
+            $return = $return->where('permissions.name', 'LIKE', "%{$filter}%");
+        }
+        return $return->paginate($qtty);
     }
 
     public function attachPermissions(int $id, array $permissions)
@@ -40,6 +44,16 @@ class ProfileRepository extends BaseRepository implements ProfileRepositoryInter
         }
         $profile = $this->getById($id);
         $profile->permissions()->attach($permissions);
+        return $profile;
+    }
+
+    public function detachPermissions(int $id, array $permissions)
+    {
+        if(count($permissions) == 0) {
+            throw new EmptyArrayException('Array vazio');
+        }
+        $profile = $this->getById($id);
+        $profile->permissions()->detach($permissions);
         return $profile;
     }
 }

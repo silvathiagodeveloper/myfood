@@ -11,6 +11,12 @@ class Permission extends Model
 
     protected $fillable = ['name', 'description'];
 
+    public function scopeFilter($q, $filter) 
+    {
+        return $q->where('name', 'LIKE', "%{$filter}%")
+                 ->orWhere('description','LIKE', "%{$filter}%");
+    }
+
     /**
      * Get Profiles
      */
