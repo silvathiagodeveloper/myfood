@@ -5,8 +5,8 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('profile.index') }}">Perfis</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('profile.show', $profile->id) }}">{{ $profile->name }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('profiles.show', $profile->id) }}">{{ $profile->name }}</a></li>
     </ol>
     <h1>Perfil - <b>{{ $profile->name }}</b></h1>
 @stop
