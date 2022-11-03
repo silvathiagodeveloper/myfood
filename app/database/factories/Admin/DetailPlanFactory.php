@@ -2,13 +2,13 @@
 
 namespace Database\Factories\Admin;
 
+use App\Models\Admin\Plan;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\DetailPlan>
  */
-class PlanFactory extends Factory
+class DetailPlanFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,8 @@ class PlanFactory extends Factory
     public function definition()
     {
         return [
+            'plan_id' => Plan::first()->id,
             'name' => fake()->name(),
-            'url' => fake()->unique()->domainName(),
-            'price' => fake()->randomFloat(2,10,50000),
-            'description' => fake()->words(4,true)
         ];
     }
 }

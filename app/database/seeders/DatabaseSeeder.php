@@ -4,8 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\Admin\DetailPlanSeeder;
+use Database\Seeders\Admin\PermissionSeeder;
 use Database\Seeders\Admin\PlanSeeder;
+use Database\Seeders\Admin\ProfileSeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +20,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(
-            [
-                PlanSeeder::class
-            ]
-        ); 
+        if (App::Environment() === 'local') {
+            $this->call(
+                [
+                    PlanSeeder::class,
+                    DetailPlanSeeder::class,
+                    ProfileSeeder::class,
+                    PermissionSeeder::class
+                ]
+            );
+        }
     }
 }

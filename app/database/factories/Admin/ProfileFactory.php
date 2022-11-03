@@ -3,12 +3,11 @@
 namespace Database\Factories\Admin;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\Profile>
  */
-class PlanFactory extends Factory
+class ProfileFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +18,6 @@ class PlanFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'url' => fake()->unique()->domainName(),
-            'price' => fake()->randomFloat(2,10,50000),
             'description' => fake()->words(4,true)
         ];
     }

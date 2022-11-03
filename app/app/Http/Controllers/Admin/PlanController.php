@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\PlanWithDetailsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdatePlanRequest;
 use App\Interfaces\Admin\PlanRepositoryInterface;
@@ -17,7 +18,7 @@ class PlanController extends Controller
     }
     public function index()
     {
-        $plans = $this->repository->getAllPaginate(6);
+        $plans = $this->repository->getAllPaginate(config('constants.max_paginate'));
 
         return view('admin.pages.plans.index', [
             'plans' => $plans
@@ -26,7 +27,7 @@ class PlanController extends Controller
 
     public function search(Request $request)
     {
-        $plans = $this->repository->search($request->filter,6);
+        $plans = $this->repository->search($request->filter,config('constants.max_paginate'));
         $filters = $request->except('_token');
         return view('admin.pages.plans.index', [
             'plans' => $plans,
@@ -56,9 +57,16 @@ class PlanController extends Controller
 
     public function destroy($url) 
     {
-        $this->repository->delete($url);
+        try {
+            $this->repository->delete($url);
 
-        return redirect()->route('plans.index');
+            return redirect()->route('plans.index');
+            
+        } catch(PlanWithDetailsException $err) {
+
+            return redirect()->back()
+                             ->withErrors([$err->getMessage()]);
+        }
     }
 
     public function edit($url) 

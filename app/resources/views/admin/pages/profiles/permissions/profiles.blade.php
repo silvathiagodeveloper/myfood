@@ -1,19 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Planos')
+@section('title', "Perfis da Permissão {$permission->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('plans.index') }}">Planos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('permissions.index') }}">Permissões</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('permissions.profiles', $permission->id) }}">{{ $permission->name }}</a></li>
     </ol>
-    <h1>Planos <a href="{{ route('plans.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
+    <h1>Perfis da Permissão {{ $permission->name }}</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{ route('plans.search') }}" method="post">
+            <form action="{{ route('permissions.profiles.search', $permission->id) }}" method="post">
                 @csrf
                 <div class="input-group input-group-sm">
                     <input type="text" name="filter" id="filter" placeholder="Nome" class="form-control" value="{{ $filters['filter'] ?? '' }}">
@@ -28,19 +29,15 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Preço</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($plans as $plan)
+                    @foreach($profiles as $profile)
                     <tr>
-                        <td>{{ $plan->name }}</td>
-                        <td>{{ number_format($plan->price, 2, ',', '.') }}</td>
-                        <td style="width: 320px;">
-                            <a href="{{ route('plans.show',$plan->url) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                            <a href="{{ route('plans.edit',$plan->url) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{{ route('details.plans.index',$plan->url) }}" class="btn btn-info"><i class="fa fa-list"></i> Detalhes</a>
+                        <td>{{ $profile->name }}</td>
+                        <td style="width:150px;">
+                            <a href="{{ route('profiles.permissions.detach', [$profile->id, $permission->id]) }}" class="btn btn-danger"><i class="fas fa-unlink"></i> Desvincular</a>
                         </td>
                     </tr>
                     @endforeach
@@ -49,9 +46,9 @@
         </div>
         <div class="card-footer">
             @if(isset($filters))
-                {!! $plans->appends($filters)->links() !!}
+                {!! $profiles->appends($filters)->links() !!}
             @else
-                {!! $plans->links() !!}
+                {!! $profiles->links() !!}
             @endif
         </div>
     </div>
