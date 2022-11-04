@@ -12,13 +12,15 @@ class PlanTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function init()
+    private function init() : array
     {
+        $result = [];
         $planRep = new PlanRepository();
-        $planRep->create(['name' => 'Teste 1', 'price' => 0]);
-        $planRep->create(['name' => 'Teste 2', 'price' => 0]);
-        $planRep->create(['name' => 'Teste 3', 'price' => 0]);
-        $planRep->create(['name' => 'Outro', 'price' => 0]);
+        $result['plan1'] = $planRep->create(['name' => 'Test 1', 'price' => 0]);
+        $result['plan2'] = $planRep->create(['name' => 'Test 2', 'price' => 2]);
+        $result['plan3'] = $planRep->create(['name' => 'Test 3', 'price' => 4]);
+        $result['plan4'] = $planRep->create(['name' => 'Outro', 'price' => 6]);
+        return $result;
     }
     /**
      * A basic test example.
@@ -38,7 +40,7 @@ class PlanTest extends TestCase
     public function test_search()
     {
         $this->init();
-        $response = $this->call('POST', 'admin/plans/search', ['filter' => 'Teste']);
+        $response = $this->call('POST', 'admin/plans/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
         $response->assertViewHas('plans');
         $plans = $response->original['plans'];
@@ -54,45 +56,41 @@ class PlanTest extends TestCase
 
     public function test_store() 
     {
-        $response = $this->call('POST', 'admin/plans', ['name' => 'Teste', 'price' => 5]);
+        $response = $this->call('POST', 'admin/plans', ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }
 
     public function test_show() 
     {
-        $this->init();
-        $response = $this->call('get', 'admin/plans/teste1');
+        $seeds = $this->init();
+        $response = $this->call('get', 'admin/plans/'.$seeds['plan1']->url);
         $response->assertStatus(200);    
         $response->assertViewHas('plan');
         $plan = $response->original['plan'];
-        $this->assertEquals('Teste 1', $plan['name']);
+        $this->assertEquals('Test 1', $plan['name']);
     }
 
     public function test_destroy() 
     {
-        $planRep = new PlanRepository();
-        $planRep->create(['name' => 'Teste 1', 'price' => 0]);
-        $plan = $planRep->getByUrl('teste1');
-        $response = $this->call('DELETE', "admin/plans/{$plan->id}");
+        $seeds = $this->init();
+        $response = $this->call('DELETE', "admin/plans/".$seeds['plan1']->id);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }
 
     public function test_edit() 
     {
-        $this->init();
-        $response = $this->call('get', 'admin/plans/teste1/edit');
+        $seeds = $this->init();
+        $response = $this->call('get', 'admin/plans/'.$seeds['plan1']->url.'/edit');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.plans.edit');
     }
 
     public function test_update() 
     {
-        $planRep = new PlanRepository();
-        $planRep->create(['name' => 'Teste 1', 'price' => 0]);
-        $plan = $planRep->getByUrl('teste1');
-        $response = $this->call('PUT', "admin/plans/{$plan->id}", ['name' => 'Teste', 'price' => 5]);
+        $seeds = $this->init();
+        $response = $this->call('PUT', "admin/plans/".$seeds['plan1']->id, ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }
