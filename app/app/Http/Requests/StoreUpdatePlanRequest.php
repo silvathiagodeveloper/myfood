@@ -27,7 +27,7 @@ class StoreUpdatePlanRequest extends FormRequest
 
         return [
             'name' => "required|min:3|max:40|unique:plans,name,{$id},id",
-            'description' => 'min:3|max:200',
+            'description' => 'nullable|min:3|max:200',
             'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
         ];
     }

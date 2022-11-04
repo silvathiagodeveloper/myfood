@@ -62,7 +62,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('permissions/{id}',       [PermissionController::class, 'destroy']   )->name('permissions.destroy');
 
     /**
-     * Profiles Profile X Permissions Routes
+     * Profiles X Permissions Routes
      */
     Route::any('profiles/{id}/permissions/search', [ProfilePermissionController::class, 'searchPermissions']    )->name('profiles.permissions.search');
     Route::get('profiles/{id}/permissions',        [ProfilePermissionController::class, 'permissions']          )->name('profiles.permissions');
