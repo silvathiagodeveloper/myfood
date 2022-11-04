@@ -11,8 +11,22 @@ class Plan extends Model
 
     protected $fillable = ['name', 'url', 'price', 'description'];
 
+    public function scopeFilter($q, $filter) 
+    {
+        return $q->where('name', 'LIKE', "%{$filter}%")
+                 ->orWhere('description','LIKE', "%{$filter}%");
+    }
+
     public function details()
     {
         return $this->hasMany(DetailPlan::class);
+    }
+
+    /**
+     * Get Profiles
+     */
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_plan');
     }
 }

@@ -18,4 +18,12 @@ class Profile extends Model
     {
         return $this->belongsToMany(Permission::class, 'profile_permission');
     }
+
+    /**
+     * Get Plans
+     */
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class, 'profile_plans');
+    }
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Admin;
 
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
+class PlanTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function test_that_true_is_true()
+    public function test_index()
     {
         $this->assertTrue(true);
     }
