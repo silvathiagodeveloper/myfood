@@ -8,12 +8,4 @@ use App\Models\Admin\Profile;
 interface ProfileRepositoryInterface extends BaseRepositoryInterface
 {
     public function search(string $fiter = null, int $qtty = 15);
-
-    public function getPermissions(Profile $profile);
-
-    public function getPermissionsPaginate(Profile $profile, int $qtty = 15, string $filter = null);
-
-    public function attachPermissions(int $id, array $permissions);
-
-    public function detachPermissions(int $id, array $permissions);
 }

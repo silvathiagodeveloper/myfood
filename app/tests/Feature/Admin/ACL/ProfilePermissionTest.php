@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Repositories\Admin\ACL\ProfilePermissionRepository;
 use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\ProfileRepository;
 use Database\Seeders\Admin\ProfileSeeder;
@@ -18,14 +19,15 @@ class ProfilePermissionTest extends TestCase
         $result = [];
         $profileRep = new ProfileRepository();
         $permissionRep = new PermissionRepository();
+        $profilepermissionRep = new ProfilePermissionRepository();
         $result['profile1'] = $profileRep->create(['name' => 'Test 1']);
         $result['profile2'] = $profileRep->create(['name' => 'Test 2']);
         $result['profile3'] = $profileRep->create(['name' => 'Test 3']);
         $result['permission1'] = $permissionRep->create(['name' => 'Test 1']);
         $result['permission2'] = $permissionRep->create(['name' => 'Test 2']);
         $result['permission3'] = $permissionRep->create(['name' => 'Test 3']);
-        $profileRep->attachPermissions($result['profile1']->id, [$result['permission1']->id,$result['permission2']->id]);
-        $profileRep->attachPermissions($result['profile2']->id, [$result['permission1']->id,$result['permission2']->id]);
+        $profilepermissionRep->attachPermissions($result['profile1']->id, [$result['permission1']->id,$result['permission2']->id]);
+        $profilepermissionRep->attachPermissions($result['profile2']->id, [$result['permission1']->id,$result['permission2']->id]);
         return $result;
     }
 
