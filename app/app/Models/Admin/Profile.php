@@ -11,6 +11,12 @@ class Profile extends Model
 
     protected $fillable = ['name', 'description'];
 
+    public function scopeFilter($q, $filter) 
+    {
+        return $q->where('name', 'LIKE', "%{$filter}%")
+                 ->orWhere('description','LIKE', "%{$filter}%");
+    }
+
     /**
      * Get Permissions
      */
@@ -24,6 +30,6 @@ class Profile extends Model
      */
     public function plans()
     {
-        return $this->belongsToMany(Plan::class, 'profile_plans');
+        return $this->belongsToMany(Plan::class, 'plan_profile');
     }
 }

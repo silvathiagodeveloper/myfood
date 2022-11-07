@@ -35,10 +35,11 @@
                     @foreach($profiles as $profile)
                     <tr>
                         <td>{{ $profile->name }}</td>
-                        <td style="width:350px;">
+                        <td style="width:450px;">
                             <a href="{{ route('profiles.show',$profile->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
                             <a href="{{ route('profiles.edit',$profile->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
                             <a href="{{ route('profiles.permissions',$profile->id) }}" class="btn btn-warning"><i class="fas fa-fw fa-lock"></i> Permissões</a>
+                            <a href="{{ route('profiles.plans',$profile->id) }}" class="btn btn-warning"><i class="fas fa-list-alt"></i> Planos</a>
                         </td>
                     </tr>
                     @endforeach
