@@ -27,6 +27,6 @@ class Plan extends Model
      */
     public function profiles()
     {
-        return $this->belongsToMany(Profile::class, 'profile_plan');
+        return $this->belongsToMany(Profile::class, 'plan_profile');
     }
 }

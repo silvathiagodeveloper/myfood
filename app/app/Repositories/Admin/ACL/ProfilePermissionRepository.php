@@ -7,7 +7,6 @@ use App\Interfaces\Admin\ACL\ProfilePermissionRepositoryInterface;
 use App\Models\Admin\Permission;
 use App\Models\Admin\Profile;
 use App\Repositories\BaseRepository;
-use Exception;
 
 class ProfilePermissionRepository extends BaseRepository implements ProfilePermissionRepositoryInterface
 {

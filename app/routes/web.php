@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ACL\PLanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -71,6 +72,17 @@ Route::prefix('admin')->group(function () {
     Route::get('profiles/{id}/permissions/{permission}/detach', [ProfilePermissionController::class, 'permissionsDetach'])->name('profiles.permissions.detach');
     Route::any('permissions/{id}/profiles/search', [ProfilePermissionController::class, 'searchProfiles']       )->name('permissions.profiles.search');
     Route::get('permissions/{id}/profiles',        [ProfilePermissionController::class, 'profiles']             )->name('permissions.profiles');
+
+    /**
+     * Plans X Profiles Routes
+     */
+    Route::any('plans/{id}/profiles/search', [PLanProfileController::class, 'searchProfiles']    )->name('plans.profiles.search');
+    Route::get('plans/{id}/profiles',        [PLanProfileController::class, 'profiles']          )->name('plans.profiles');
+    Route::any('plans/{id}/profiles/create', [PLanProfileController::class, 'profilesAvailable'] )->name('plans.profiles.create');
+    Route::post('plans/{id}/profiles',       [PLanProfileController::class, 'profilesAttach']    )->name('plans.profiles.attach');
+    Route::get('plans/{id}/profiles/{permission}/detach', [PLanProfileController::class, 'profilesDetach'])->name('plans.profiles.detach');
+    Route::any('profiles/{id}/plans/search', [PLanProfileController::class, 'searchPlans']       )->name('profiles.plans.search');
+    Route::get('profiles/{id}/plans',        [PLanProfileController::class, 'plans']             )->name('profiles.plans');
 });
 
 Route::get('/', function () {
