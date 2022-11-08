@@ -2,17 +2,20 @@
 
 use App\Http\Controllers\Admin\ACL\PLanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
     /**
      * Home
      */
-    Route::get('/', [PlanController::class, 'index'])->name('admin.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
     
     /**
      * Plans Routes
@@ -88,3 +91,5 @@ Route::prefix('admin')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+require __DIR__.'/auth.php';
