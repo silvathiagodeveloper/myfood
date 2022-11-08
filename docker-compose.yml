@@ -66,5 +66,19 @@ services:
                 reservations:
                     cpus: '0.25'
                     memory: 512M
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
 volumes:
     mysqldata: {}
