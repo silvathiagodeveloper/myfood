@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -89,8 +90,6 @@ Route::prefix('admin')
     Route::get('profiles/{id}/plans',        [PLanProfileController::class, 'plans']             )->name('profiles.plans');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', [SiteController::class, 'index']             )->name('site.home');
 
 require __DIR__.'/auth.php';
