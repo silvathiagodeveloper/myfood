@@ -17,9 +17,20 @@ class Plan extends Model
                  ->orWhere('description','LIKE', "%{$filter}%");
     }
 
+    /**
+     * Get Details
+     */
     public function details()
     {
         return $this->hasMany(DetailPlan::class);
+    }
+
+    /**
+     * Get Tenants
+     */
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
     }
 
     /**
