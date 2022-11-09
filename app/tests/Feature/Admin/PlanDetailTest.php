@@ -33,8 +33,9 @@ class PlanDetailTest extends TestCase
      */
     public function test_index()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details');
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details');
         $response->assertStatus(200);    
         $response->assertViewHas('details');
         $details = $response->original['details'];
@@ -43,8 +44,9 @@ class PlanDetailTest extends TestCase
 
     public function test_search()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/search', ['filter' => 'Detail 1']);
+        $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/search', ['filter' => 'Detail 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('details');
         $details = $response->original['details'];
@@ -53,24 +55,27 @@ class PlanDetailTest extends TestCase
 
     public function test_create()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details/create');
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.plans.details.create');
     }
 
     public function test_store() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/details', ['name' => 'Detail']);
+        $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/details', ['name' => 'Detail']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans/'.$seeds['plan1']->url.'/details');
     }
 
     public function test_show() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/plans/test1/details/'.$seeds['detail1']->id);
+        $response = $this->actingAs($user)->call('get', 'admin/plans/test1/details/'.$seeds['detail1']->id);
         $response->assertStatus(200);    
         $response->assertViewHas('detail');
         $detail = $response->original['detail'];
@@ -79,24 +84,27 @@ class PlanDetailTest extends TestCase
 
     public function test_destroy() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('DELETE', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id);
+        $response = $this->actingAs($user)->call('DELETE', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans/'.$seeds['plan1']->url.'/details');
     }
 
     public function test_edit() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id.'/edit');
+        $response = $this->actingAs($user)->call('get', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id.'/edit');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.plans.details.edit');
     }
 
     public function test_update() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('PUT', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id, ['name' => 'Test', 'price' => 5]);
+        $response = $this->actingAs($user)->call('PUT', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id, ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans/'.$seeds['plan1']->url.'/details');
     }

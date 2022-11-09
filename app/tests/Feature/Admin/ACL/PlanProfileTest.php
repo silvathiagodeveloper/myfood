@@ -31,8 +31,9 @@ class PlanProfileTest extends TestCase
 
     public function test_profiles()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles');
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles');
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -41,8 +42,9 @@ class PlanProfileTest extends TestCase
 
     public function test_plans()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/plans');
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/plans');
         $response->assertStatus(200);    
         $response->assertViewHas('plans');
         $plans = $response->original['plans'];
@@ -51,8 +53,9 @@ class PlanProfileTest extends TestCase
 
     public function test_searchProfiles()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/plans/'.$seeds['plan1']->id.'/profiles/search',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->id.'/profiles/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -61,8 +64,9 @@ class PlanProfileTest extends TestCase
 
     public function test_searchPlans()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/plans/search',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/plans/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('plans');
         $plans = $response->original['plans'];
@@ -71,8 +75,9 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAvailable()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create');
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create');
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -81,8 +86,9 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAvailableFilter()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -91,8 +97,9 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAttach()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call(
+        $response = $this->actingAs($user)->call(
             'POST', 
             'admin/plans/'.$seeds['plan1']->id.'/profiles',
             ['profiles' => [$seeds['profile3']->id]]
@@ -103,8 +110,9 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesDetach()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call(
+        $response = $this->actingAs($user)->call(
             'GET', 
             'admin/plans/'.$seeds['plan1']->id.'/profiles/'.$seeds['profile1']->id.'/detach'
         );

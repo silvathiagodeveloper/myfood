@@ -2,11 +2,9 @@
 
 namespace App\Repositories\Admin;
 
-use App\Exceptions\EmptyArrayException;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Models\Admin\Profile;
 use App\Repositories\BaseRepository;
-use Exception;
 
 class ProfileRepository extends BaseRepository implements ProfileRepositoryInterface
 {

@@ -31,8 +31,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissions()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions');
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions');
         $response->assertStatus(200);    
         $response->assertViewHas('permissions');
         $permissions = $response->original['permissions'];
@@ -41,8 +42,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_profiles()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/permissions/'.$seeds['permission1']->id.'/profiles');
+        $response = $this->actingAs($user)->call('GET', 'admin/permissions/'.$seeds['permission1']->id.'/profiles');
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -51,8 +53,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_searchPermissions()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/search',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('permissions');
         $permissions = $response->original['permissions'];
@@ -61,8 +64,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_searchProfiles()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('POST', 'admin/permissions/'.$seeds['permission1']->id.'/profiles/search',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('POST', 'admin/permissions/'.$seeds['permission1']->id.'/profiles/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -71,8 +75,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAvailable()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create');
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create');
         $response->assertStatus(200);    
         $response->assertViewHas('permissions');
         $permissions = $response->original['permissions'];
@@ -81,8 +86,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAvailableFilter()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create',['filter' => 'Test 1']);
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create',['filter' => 'Test 1']);
         $response->assertStatus(200);    
         $response->assertViewHas('permissions');
         $permissions = $response->original['permissions'];
@@ -91,8 +97,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAttach()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call(
+        $response = $this->actingAs($user)->call(
             'POST', 
             'admin/profiles/'.$seeds['profile1']->id.'/permissions',
             ['permissions' => [$seeds['permission3']->id]]
@@ -103,8 +110,9 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsDetach()
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call(
+        $response = $this->actingAs($user)->call(
             'GET', 
             'admin/profiles/'.$seeds['profile1']->id.'/permissions/'.$seeds['permission1']->id.'/detach'
         );
