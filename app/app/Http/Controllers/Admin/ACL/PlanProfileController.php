@@ -9,7 +9,7 @@ use App\Interfaces\Admin\PlanRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use Illuminate\Http\Request;
 
-class PLanProfileController extends Controller
+class PlanProfileController extends Controller
 {
     private PlanRepositoryInterface $planRepository;
     private ProfileRepositoryInterface $profileRepository;

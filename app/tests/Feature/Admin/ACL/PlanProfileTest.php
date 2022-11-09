@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Admin;
+namespace Tests\Feature\Admin\ACL;
 
 use App\Repositories\Admin\ACL\PlanProfileRepository;
 use App\Repositories\Admin\PlanRepository;

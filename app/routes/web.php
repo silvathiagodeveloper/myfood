@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\ACL\PLanProfileController;
+use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DetailPlanController;
@@ -81,13 +81,13 @@ Route::prefix('admin')
     /**
      * Plans X Profiles Routes
      */
-    Route::any('plans/{id}/profiles/search', [PLanProfileController::class, 'searchProfiles']    )->name('plans.profiles.search');
-    Route::get('plans/{id}/profiles',        [PLanProfileController::class, 'profiles']          )->name('plans.profiles');
-    Route::any('plans/{id}/profiles/create', [PLanProfileController::class, 'profilesAvailable'] )->name('plans.profiles.create');
-    Route::post('plans/{id}/profiles',       [PLanProfileController::class, 'profilesAttach']    )->name('plans.profiles.attach');
-    Route::get('plans/{id}/profiles/{permission}/detach', [PLanProfileController::class, 'profilesDetach'])->name('plans.profiles.detach');
-    Route::any('profiles/{id}/plans/search', [PLanProfileController::class, 'searchPlans']       )->name('profiles.plans.search');
-    Route::get('profiles/{id}/plans',        [PLanProfileController::class, 'plans']             )->name('profiles.plans');
+    Route::any('plans/{id}/profiles/search', [PlanProfileController::class, 'searchProfiles']    )->name('plans.profiles.search');
+    Route::get('plans/{id}/profiles',        [PlanProfileController::class, 'profiles']          )->name('plans.profiles');
+    Route::any('plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'] )->name('plans.profiles.create');
+    Route::post('plans/{id}/profiles',       [PlanProfileController::class, 'profilesAttach']    )->name('plans.profiles.attach');
+    Route::get('plans/{id}/profiles/{permission}/detach', [PlanProfileController::class, 'profilesDetach'])->name('plans.profiles.detach');
+    Route::any('profiles/{id}/plans/search', [PlanProfileController::class, 'searchPlans']       )->name('profiles.plans.search');
+    Route::get('profiles/{id}/plans',        [PlanProfileController::class, 'plans']             )->name('profiles.plans');
 });
 
     Route::get('/', [SiteController::class, 'index']             )->name('site.home');

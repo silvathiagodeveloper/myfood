@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Feature\Admin;
+namespace Tests\Feature\Admin\ACL;
 
 use App\Repositories\Admin\ACL\ProfilePermissionRepository;
 use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\ProfileRepository;
-use Database\Seeders\Admin\ProfileSeeder;
-use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
