@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\Auth\RegisteredUserRequest;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\Auth\RegisteredUserRepository;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +18,12 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $plan = session()->get('plan') ?? null;
+        if(!isset($plan)) {
+            return redirect()->route('site.home');
+        }
+
+        return view('auth.register', ['plan' => $plan]);
     }
 
     /**
@@ -31,23 +34,17 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(RegisteredUserRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $registeredRep = new RegisteredUserRepository();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = $registeredRep->register($request->all());
 
         event(new Registered($user));
 
         Auth::login($user);
+
+        session()->forget('plan');
 
         return redirect(RouteServiceProvider::HOME);
     }

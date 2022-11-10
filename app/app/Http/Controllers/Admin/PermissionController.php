@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreUpdatePermissionRequest;
+use App\Http\Requests\Admin\StoreUpdatePermissionRequest;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\PermissionRepositoryInterface;
 use Illuminate\Http\Request;

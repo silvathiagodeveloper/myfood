@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="description-block">
-                                            <button type="button" class="btn btn-block btn-info btn-lg">Assinar</button>
+                                            <a href="{{ route('site.plan', $plan->url) }}" class="btn btn-block btn-info btn-lg">Assinar</a>
                                         </div>
                                     </div>                         
                                 </div>

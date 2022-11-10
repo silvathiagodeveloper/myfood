@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreUpdateProfileRequest;
+use App\Http\Requests\Admin\StoreUpdateProfileRequest;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use Illuminate\Http\Request;

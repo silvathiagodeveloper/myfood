@@ -89,6 +89,10 @@ Route::prefix('admin')
     Route::get('profiles/{id}/plans',        [PlanProfileController::class, 'plans']             )->name('profiles.plans');
 });
 
-    Route::get('/', [SiteController::class, 'index']             )->name('site.home');
+/**
+ * Site Routes
+ */
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
+Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('site.plan');
 
 require __DIR__.'/auth.php';

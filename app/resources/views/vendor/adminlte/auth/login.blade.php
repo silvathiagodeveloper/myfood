@@ -93,9 +93,9 @@
     @endif
 
     {{-- Register link --}}
-    @if (Route::has('register'))
+    @if (Route::has('site.home'))
         <p class="my-0">
-            <a href="{{ route('register') }}">
+            <a href="{{ route('site.home') }}">
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
             </a>
         </p>

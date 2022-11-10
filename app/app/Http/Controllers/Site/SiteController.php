@@ -16,4 +16,14 @@ class SiteController extends Controller
             'plans' => $plans
         ]);
     }
+
+    public function plan(string $url)
+    {
+        $planRep = new PlanRepository();
+        $plan = $planRep->getByUrl($url);
+
+        session()->put('plan',$plan);
+
+        return redirect()->route('register');
+    }
 }

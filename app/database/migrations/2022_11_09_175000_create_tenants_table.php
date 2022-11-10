@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
-            $table->string('cnpj')->unique();
-            $table->string('name')->unique();
-            $table->string('url')->unique();
-            $table->string('email')->unique();
+            $table->string('cnpj',15)->unique();
+            $table->string('name',40)->unique();
+            $table->string('url',200)->unique();
+            $table->string('email',100)->unique();
 
             $table->foreignId('plan_id')
                   ->constrained('plans')
