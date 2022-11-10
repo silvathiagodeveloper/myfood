@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdatePlanRequest extends FormRequest
+class StoreUpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,8 @@ class StoreUpdatePlanRequest extends FormRequest
         $id = $this->segment(3);
 
         return [
-            'name' => "required|min:3|max:40|unique:plans,name,{$id},id",
-            'description' => 'nullable|min:3|max:200',
-            'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'name' => "required|min:3|max:40|unique:profiles,name,{$id},id",
+            'description' => 'min:3|max:200',
         ];
     }
 }
