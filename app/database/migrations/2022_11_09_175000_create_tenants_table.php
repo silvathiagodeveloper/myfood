@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('cnpj',15)->unique();
             $table->string('name',40)->unique();
             $table->string('url',200)->unique();

@@ -15,6 +15,7 @@ class TenantObserver
      */
     public function creating(Tenant $tenant)
     {
+        $tenant->uuid = Str::uuid();
         $tenant->url = $this->createUrl($tenant->name);
     }
 
