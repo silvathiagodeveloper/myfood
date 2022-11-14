@@ -19,7 +19,7 @@ class GlobalTenantObserver
         $tenantManager = app(TenantManager::class);
         $tenantId = $tenantManager->getTenantId();
         if(isset($tenantId)) {
-            $model->tenant_id = $tenantManager->getTenantId();
+            $model->tenant_id = $tenantId;
         }
     }
 }

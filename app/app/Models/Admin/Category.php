@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends BaseModel
 {
-    use HasFactory;
-
     protected $fillable = [ 'tenant_id', 'name', 'url','description'];
 
     public function scopeFilter($q, $filter) 

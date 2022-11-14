@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Scopes\TenantScope;
+use App\Services\Tenant\TenantManager;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,13 +48,15 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The "booted" method of the model.
+     * Scope a query to only include popular users.
      *
-     * @return void
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    protected static function booted()
+    public function scopeTenantId($query)
     {
-        static::addGlobalScope(new TenantScope);
+        $tenantManager = app(TenantManager::class);
+        return $query->where('tenant_id', $tenantManager->getTenantId());
     }
 
     /**

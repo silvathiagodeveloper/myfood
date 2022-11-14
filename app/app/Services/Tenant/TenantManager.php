@@ -9,7 +9,7 @@ class TenantManager
 {
     public function getTenantId() : int|null
     {
-        return auth()->user()->tenant_id ?? null;
+        return session()->get('user')->tenant_id ?? null;
     }
 
     public function getTenant(): Tenant
@@ -20,6 +20,6 @@ class TenantManager
 
     public function isAdmin(): bool
     {
-        return in_array(auth()->user()->email, config('tenant.admins'));
+        return in_array(session()->get('user')->email ?? null, config('tenant.admins'));
     }
 }

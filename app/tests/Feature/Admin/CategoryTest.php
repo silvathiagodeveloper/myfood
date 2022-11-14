@@ -32,7 +32,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         Category::factory(10)->create(['tenant_id' => $user->tenant_id]);
-        $response = $this->actingAs($user)->call('GET', 'admin/categories');
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('GET', 'admin/categories');
         $response->assertStatus(200);    
         $response->assertViewHas('categories');
         $categories = $response->original['categories'];
@@ -43,7 +45,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         $this->init($user->tenant_id);
-        $response = $this->actingAs($user)->call('POST', 'admin/categories/search', ['filter' => 'Test']);
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('POST', 'admin/categories/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
         $response->assertViewHas('categories');
         $categories = $response->original['categories'];
@@ -53,7 +57,9 @@ class CategoryTest extends TestCase
     public function test_create()
     {
         $user = $this->auth();
-        $response = $this->actingAs($user)->call('GET', 'admin/categories/create');
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('GET', 'admin/categories/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.categories.create');
     }
@@ -61,7 +67,9 @@ class CategoryTest extends TestCase
     public function test_store() 
     {
         $user = $this->auth();
-        $response = $this->actingAs($user)->call('POST', 'admin/categories', ['name' => 'Test']);
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('POST', 'admin/categories', ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/categories');
     }
@@ -70,7 +78,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         $seeds = $this->init($user->tenant_id);
-        $response = $this->actingAs($user)->call('get', 'admin/categories/'.$seeds['category1']->url);
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('get', 'admin/categories/'.$seeds['category1']->url);
         $response->assertStatus(200);    
         $response->assertViewHas('category');
         $category = $response->original['category'];
@@ -81,7 +91,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         $seeds = $this->init($user->tenant_id);
-        $response = $this->actingAs($user)->call('DELETE', "admin/categories/".$seeds['category1']->id);
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('DELETE', "admin/categories/".$seeds['category1']->id);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/categories');
     }
@@ -90,7 +102,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         $seeds = $this->init($user->tenant_id);
-        $response = $this->actingAs($user)->call('get', 'admin/categories/'.$seeds['category1']->url.'/edit');
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('get', 'admin/categories/'.$seeds['category1']->url.'/edit');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.categories.edit');
     }
@@ -99,7 +113,9 @@ class CategoryTest extends TestCase
     {
         $user = $this->auth();
         $seeds = $this->init($user->tenant_id);
-        $response = $this->actingAs($user)->call('PUT', "admin/categories/".$seeds['category1']->id, ['name' => 'Test']);
+        $response = $this->actingAs($user)
+                         ->withSession(['user' => $user])
+                         ->call('PUT', "admin/categories/".$seeds['category1']->id, ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/categories');
     }
