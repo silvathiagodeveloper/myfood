@@ -84,19 +84,18 @@
 @stop
 
 @section('auth_footer')
-    {{-- Password reset link --}}
-    @if($password_reset_url)
+    @if (Route::has('password.request'))
         <p class="my-0">
-            <a href="{{ $password_reset_url }}">
+            <a href="{{ route('password.request') }}">
                 {{ __('adminlte::adminlte.i_forgot_my_password') }}
             </a>
         </p>
     @endif
 
     {{-- Register link --}}
-    @if($register_url)
+    @if (Route::has('site.home'))
         <p class="my-0">
-            <a href="{{ $register_url }}">
+            <a href="{{ route('site.home') }}">
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
             </a>
         </p>

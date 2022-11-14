@@ -6,23 +6,12 @@
 
 @section('classes_body', 'lockscreen')
 
-@php( $password_reset_url = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset') )
-@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
-
-@if (config('adminlte.use_route_url', false))
-    @php( $password_reset_url = $password_reset_url ? route($password_reset_url) : '' )
-    @php( $dashboard_url = $dashboard_url ? route($dashboard_url) : '' )
-@else
-    @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
-    @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
-@endif
-
 @section('body')
     <div class="lockscreen-wrapper">
 
         {{-- Lockscreen logo --}}
         <div class="lockscreen-logo">
-            <a href="{{ $dashboard_url }}">
+            <a href="{{ route('admin.index') }}">
                 <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
                 {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
             </a>
@@ -74,7 +63,7 @@
 
         {{-- Additional links --}}
         <div class="text-center">
-            <a href="{{ $password_reset_url }}">
+            <a href="{{ route('password.request') }}">
                 {{ __('adminlte::adminlte.i_forgot_my_password') }}
             </a>
         </div>

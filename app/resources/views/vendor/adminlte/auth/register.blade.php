@@ -1,21 +1,11 @@
 @extends('adminlte::auth.auth-page', ['auth_type' => 'register'])
 
-@php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
-@php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
-
-@if (config('adminlte.use_route_url', false))
-    @php( $login_url = $login_url ? route($login_url) : '' )
-    @php( $register_url = $register_url ? route($register_url) : '' )
-@else
-    @php( $login_url = $login_url ? url($login_url) : '' )
-    @php( $register_url = $register_url ? url($register_url) : '' )
-@endif
-
-@section('auth_header', __('adminlte::adminlte.register_message'))
+@section('auth_header', __('Contratar Plano')." ".$plan->name ?? '')
 
 @section('auth_body')
-    <form action="{{ $register_url }}" method="post">
+    <form action="{{ route('register') }}" method="post">
         @csrf
+        <input type="hidden" id="plan_id" name="plan_id" value="{{ $plan->id ?? '' }}">
 
         {{-- Name field --}}
         <div class="input-group mb-3">
@@ -47,6 +37,42 @@
             </div>
 
             @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        {{-- TenantName field --}}
+        <div class="input-group mb-3">
+            <input type="text" name="tenantname" class="form-control @error('tenantname') is-invalid @enderror"
+                   value="{{ old('tenantname') }}" placeholder="{{ __('Empresa') }}" autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-building {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('tenantname')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        {{-- CNPJ field --}}
+        <div class="input-group mb-3">
+            <input type="text" name="cnpj" class="form-control @error('cnpj') is-invalid @enderror"
+                   value="{{ old('cnpj') }}" placeholder="{{ __('CNPJ') }}" autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-globe {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('cnpj')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -101,7 +127,7 @@
 
 @section('auth_footer')
     <p class="my-0">
-        <a href="{{ $login_url }}">
+        <a href="{{ route('login') }}">
             {{ __('adminlte::adminlte.i_already_have_a_membership') }}
         </a>
     </p>

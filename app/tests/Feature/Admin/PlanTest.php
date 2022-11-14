@@ -2,15 +2,17 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Admin\Plan;
+use App\Models\User;
 use App\Repositories\Admin\PlanRepository;
-use Database\Seeders\Admin\PlanSeeder;
-use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class PlanTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     private function init() : array
     {
@@ -29,8 +31,9 @@ class PlanTest extends TestCase
      */
     public function test_index()
     {
-        (new DatabaseSeeder())->call(PlanSeeder::class);
-        $response = $this->call('GET', 'admin/plans');
+        $user = $this->auth();
+        Plan::factory(10)->create();
+        $response = $this->actingAs($user)->call('GET', 'admin/plans');
         $response->assertStatus(200);    
         $response->assertViewHas('plans');
         $plans = $response->original['plans'];
@@ -39,8 +42,9 @@ class PlanTest extends TestCase
 
     public function test_search()
     {
+        $user = $this->auth();
         $this->init();
-        $response = $this->call('POST', 'admin/plans/search', ['filter' => 'Test']);
+        $response = $this->actingAs($user)->call('POST', 'admin/plans/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
         $response->assertViewHas('plans');
         $plans = $response->original['plans'];
@@ -49,22 +53,25 @@ class PlanTest extends TestCase
 
     public function test_create()
     {
-        $response = $this->call('GET', 'admin/plans/create');
+        $user = $this->auth();
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.plans.create');
     }
 
     public function test_store() 
     {
-        $response = $this->call('POST', 'admin/plans', ['name' => 'Test', 'price' => 5]);
+        $user = $this->auth();
+        $response = $this->actingAs($user)->call('POST', 'admin/plans', ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }
 
     public function test_show() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/plans/'.$seeds['plan1']->url);
+        $response = $this->actingAs($user)->call('get', 'admin/plans/'.$seeds['plan1']->url);
         $response->assertStatus(200);    
         $response->assertViewHas('plan');
         $plan = $response->original['plan'];
@@ -73,24 +80,27 @@ class PlanTest extends TestCase
 
     public function test_destroy() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('DELETE', "admin/plans/".$seeds['plan1']->id);
+        $response = $this->actingAs($user)->call('DELETE', "admin/plans/".$seeds['plan1']->id);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }
 
     public function test_edit() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/plans/'.$seeds['plan1']->url.'/edit');
+        $response = $this->actingAs($user)->call('get', 'admin/plans/'.$seeds['plan1']->url.'/edit');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.plans.edit');
     }
 
     public function test_update() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('PUT', "admin/plans/".$seeds['plan1']->id, ['name' => 'Test', 'price' => 5]);
+        $response = $this->actingAs($user)->call('PUT', "admin/plans/".$seeds['plan1']->id, ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/plans');
     }

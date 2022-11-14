@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\ACL;
 
 use App\Exceptions\EmptyArrayException;
-use App\Http\Requests\StoreUpdateProfileRequest;
 use App\Http\Controllers\Controller;
+use App\Interfaces\Admin\ACL\ProfilePermissionRepositoryInterface;
 use App\Interfaces\Admin\PermissionRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use Illuminate\Http\Request;
@@ -13,17 +13,22 @@ class ProfilePermissionController extends Controller
 {
     private ProfileRepositoryInterface $profileRepository;
     private PermissionRepositoryInterface $permissionRepository;
+    private ProfilePermissionRepositoryInterface $profilePermissionRepository;
 
-    public function __construct(ProfileRepositoryInterface $profileRepository, PermissionRepositoryInterface $permissionRepository)
-    {
+    public function __construct(
+        ProfileRepositoryInterface $profileRepository, 
+        PermissionRepositoryInterface $permissionRepository,
+        ProfilePermissionRepositoryInterface $profilePermissionRepository
+    ){
         $this->profileRepository = $profileRepository;
         $this->permissionRepository = $permissionRepository;
+        $this->profilePermissionRepository = $profilePermissionRepository;
     }
 
     public function permissions(int $idProfile)
     {
         $profile = $this->profileRepository->getById($idProfile);
-        $permissions = $this->profileRepository->getPermissionsPaginate($profile, config('constants.max_paginate'));
+        $permissions = $this->profilePermissionRepository->getPermissionsPaginate($profile, config('constants.max_paginate'));
 
         return view('admin.pages.profiles.permissions.index',[
             'profile' => $profile,
@@ -34,7 +39,7 @@ class ProfilePermissionController extends Controller
     public function profiles(int $idPermission)
     {
         $permission = $this->permissionRepository->getById($idPermission);
-        $profiles = $this->permissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'));
+        $profiles = $this->profilePermissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'));
 
         return view('admin.pages.profiles.permissions.profiles',[
             'permission' => $permission,
@@ -45,7 +50,7 @@ class ProfilePermissionController extends Controller
     public function searchPermissions(Request $request, int $idProfile)
     {
         $profile = $this->profileRepository->getById($idProfile);
-        $permissions = $this->profileRepository->getPermissionsPaginate($profile, config('constants.max_paginate'), $request->filter ?? null);
+        $permissions = $this->profilePermissionRepository->getPermissionsPaginate($profile, config('constants.max_paginate'), $request->filter ?? null);
 
         return view('admin.pages.profiles.permissions.index',[
             'profile' => $profile,
@@ -57,7 +62,7 @@ class ProfilePermissionController extends Controller
     public function searchProfiles(Request $request, int $idPermission)
     {
         $permission = $this->permissionRepository->getById($idPermission);
-        $profiles = $this->permissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'), $request->filter ?? null);
+        $profiles = $this->profilePermissionRepository->getProfilesPaginate($permission, config('constants.max_paginate'), $request->filter ?? null);
 
         return view('admin.pages.profiles.permissions.profiles',[
             'permission' => $permission,
@@ -69,7 +74,7 @@ class ProfilePermissionController extends Controller
     public function permissionsAvailable(Request $request, int $idProfile)
     {
         $profile = $this->profileRepository->getById($idProfile);
-        $permissions = $this->permissionRepository->getByProfileId($idProfile, config('constants.max_paginate'), $request->filter ?? null);
+        $permissions = $this->profilePermissionRepository->getPermissionsAvailable($idProfile, config('constants.max_paginate'), $request->filter ?? null);
 
         return view('admin.pages.profiles.permissions.create', [
             'profile' => $profile,
@@ -81,7 +86,7 @@ class ProfilePermissionController extends Controller
     public function permissionsAttach(Request $request, int $idProfile)
     {
         try {
-            $this->profileRepository->attachPermissions($idProfile, $request->input('permissions') ?? []);
+            $this->profilePermissionRepository->attachPermissions($idProfile, $request->input('permissions') ?? []);
             return redirect()->route('profiles.permissions', $idProfile);
         } catch(EmptyArrayException $err) {
             return redirect()->back()
@@ -91,7 +96,7 @@ class ProfilePermissionController extends Controller
 
     public function permissionsDetach(int $idProfile, int $idPermission)
     {
-        $this->profileRepository->detachPermissions($idProfile, [$idPermission]);
+        $this->profilePermissionRepository->detachPermissions($idProfile, [$idPermission]);
 
         return redirect()->route('profiles.permissions', $idProfile);
     }

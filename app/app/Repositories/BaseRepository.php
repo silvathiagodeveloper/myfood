@@ -12,9 +12,21 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $this->modelName = Model::class;
     }
-    public function getAll() 
+    public function getAll(array $order = null, array $with = null) 
     {
-        return $this->modelName::all();
+        $modelName = $this->modelName;
+        $result = new $modelName();
+        if(isset($order)) {
+            $result = $result->orderBy(implode(',',$order));
+        } 
+
+        if(isset($with)) {
+            foreach($with as $item) {
+                $result = $result->with($item);
+            }
+        } 
+
+        return $result->get();
     }
 
     public function getAllPaginate(int $qtty = 15)

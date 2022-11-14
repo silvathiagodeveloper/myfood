@@ -8,6 +8,8 @@ use Database\Seeders\Admin\DetailPlanSeeder;
 use Database\Seeders\Admin\PermissionSeeder;
 use Database\Seeders\Admin\PlanSeeder;
 use Database\Seeders\Admin\ProfileSeeder;
+use Database\Seeders\Admin\TenantSeeder;
+use Database\Seeders\Admin\UserSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -26,7 +28,9 @@ class DatabaseSeeder extends Seeder
                     PlanSeeder::class,
                     DetailPlanSeeder::class,
                     ProfileSeeder::class,
-                    PermissionSeeder::class
+                    PermissionSeeder::class,
+                    TenantSeeder::class,
+                    UserSeeder::class
                 ]
             );
         }

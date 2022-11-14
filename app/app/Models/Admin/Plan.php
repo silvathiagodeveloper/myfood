@@ -17,9 +17,20 @@ class Plan extends Model
                  ->orWhere('description','LIKE', "%{$filter}%");
     }
 
+    /**
+     * Get Details
+     */
     public function details()
     {
         return $this->hasMany(DetailPlan::class);
+    }
+
+    /**
+     * Get Tenants
+     */
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
     }
 
     /**
@@ -27,6 +38,6 @@ class Plan extends Model
      */
     public function profiles()
     {
-        return $this->belongsToMany(Profile::class, 'profile_plan');
+        return $this->belongsToMany(Profile::class, 'plan_profile');
     }
 }

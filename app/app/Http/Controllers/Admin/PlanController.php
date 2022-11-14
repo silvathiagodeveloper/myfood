@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\PlanWithDetailsException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdatePlanRequest;
+use App\Http\Requests\Admin\StoreUpdatePlanRequest;
 use App\Interfaces\Admin\PlanRepositoryInterface;
 use Illuminate\Http\Request;
 

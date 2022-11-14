@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdatePermissionRequest extends FormRequest
+class StoreUpdateDetailPlanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,8 @@ class StoreUpdatePermissionRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
-            'name' => "required|min:3|max:40|unique:permissions,name,{$id},id",
-            'description' => 'min:3|max:200',
+            'name' => "required|min:3|max:40"
         ];
     }
 }

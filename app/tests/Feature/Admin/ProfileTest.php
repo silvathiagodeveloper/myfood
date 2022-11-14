@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Admin\Profile;
 use App\Repositories\Admin\ProfileRepository;
-use Database\Seeders\Admin\ProfileSeeder;
-use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -29,8 +28,9 @@ class ProfileTest extends TestCase
      */
     public function test_index()
     {
-        (new DatabaseSeeder())->call(ProfileSeeder::class);
-        $response = $this->call('GET', 'admin/profiles');
+        $user = $this->auth();
+        Profile::factory(10)->create();
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles');
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -39,8 +39,9 @@ class ProfileTest extends TestCase
 
     public function test_search()
     {
+        $user = $this->auth();
         $this->init();
-        $response = $this->call('POST', 'admin/profiles/search', ['filter' => 'Test']);
+        $response = $this->actingAs($user)->call('POST', 'admin/profiles/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
         $response->assertViewHas('profiles');
         $profiles = $response->original['profiles'];
@@ -49,22 +50,25 @@ class ProfileTest extends TestCase
 
     public function test_create()
     {
-        $response = $this->call('GET', 'admin/profiles/create');
+        $user = $this->auth();
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.profiles.create');
     }
 
     public function test_store() 
     {
-        $response = $this->call('POST', 'admin/profiles', ['name' => 'Test']);
+        $user = $this->auth();
+        $response = $this->actingAs($user)->call('POST', 'admin/profiles', ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/profiles');
     }
 
     public function test_show() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/profiles/'.$seeds['profile1']->id);
+        $response = $this->actingAs($user)->call('get', 'admin/profiles/'.$seeds['profile1']->id);
         $response->assertStatus(200);    
         $response->assertViewHas('profile');
         $profile = $response->original['profile'];
@@ -73,24 +77,27 @@ class ProfileTest extends TestCase
 
     public function test_destroy() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('DELETE', "admin/profiles/".$seeds['profile1']->id);
+        $response = $this->actingAs($user)->call('DELETE', "admin/profiles/".$seeds['profile1']->id);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/profiles');
     }
 
     public function test_edit() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('get', 'admin/profiles/'.$seeds['profile1']->id.'/edit');
+        $response = $this->actingAs($user)->call('get', 'admin/profiles/'.$seeds['profile1']->id.'/edit');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.profiles.edit');
     }
 
     public function test_update() 
     {
+        $user = $this->auth();
         $seeds = $this->init();
-        $response = $this->call('PUT', "admin/profiles/".$seeds['profile1']->id, ['name' => 'Test']);
+        $response = $this->actingAs($user)->call('PUT', "admin/profiles/".$seeds['profile1']->id, ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/profiles');
     }

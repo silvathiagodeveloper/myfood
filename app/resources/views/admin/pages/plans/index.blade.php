@@ -37,10 +37,11 @@
                     <tr>
                         <td>{{ $plan->name }}</td>
                         <td>{{ number_format($plan->price, 2, ',', '.') }}</td>
-                        <td style="width: 320px;">
+                        <td style="width: 390px;">
                             <a href="{{ route('plans.show',$plan->url) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
                             <a href="{{ route('plans.edit',$plan->url) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
                             <a href="{{ route('details.plans.index',$plan->url) }}" class="btn btn-info"><i class="fa fa-list"></i> Detalhes</a>
+                            <a href="{{ route('plans.profiles',$plan->id) }}" class="btn btn-warning"><i class="fas fa-tags"></i> Perfis</a>
                         </td>
                     </tr>
                     @endforeach

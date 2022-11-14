@@ -1,17 +1,22 @@
 <?php
 
+use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+    ->middleware(['auth', 'verified'])
+    ->group(function () {
     /**
      * Home
      */
-    Route::get('/', [PlanController::class, 'index'])->name('admin.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
     
     /**
      * Plans Routes
@@ -71,8 +76,23 @@ Route::prefix('admin')->group(function () {
     Route::get('profiles/{id}/permissions/{permission}/detach', [ProfilePermissionController::class, 'permissionsDetach'])->name('profiles.permissions.detach');
     Route::any('permissions/{id}/profiles/search', [ProfilePermissionController::class, 'searchProfiles']       )->name('permissions.profiles.search');
     Route::get('permissions/{id}/profiles',        [ProfilePermissionController::class, 'profiles']             )->name('permissions.profiles');
+
+    /**
+     * Plans X Profiles Routes
+     */
+    Route::any('plans/{id}/profiles/search', [PlanProfileController::class, 'searchProfiles']    )->name('plans.profiles.search');
+    Route::get('plans/{id}/profiles',        [PlanProfileController::class, 'profiles']          )->name('plans.profiles');
+    Route::any('plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'] )->name('plans.profiles.create');
+    Route::post('plans/{id}/profiles',       [PlanProfileController::class, 'profilesAttach']    )->name('plans.profiles.attach');
+    Route::get('plans/{id}/profiles/{permission}/detach', [PlanProfileController::class, 'profilesDetach'])->name('plans.profiles.detach');
+    Route::any('profiles/{id}/plans/search', [PlanProfileController::class, 'searchPlans']       )->name('profiles.plans.search');
+    Route::get('profiles/{id}/plans',        [PlanProfileController::class, 'plans']             )->name('profiles.plans');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * Site Routes
+ */
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
+Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('site.plan');
+
+require __DIR__.'/auth.php';

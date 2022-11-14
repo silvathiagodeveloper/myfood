@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateDetailPlanRequest;
+use App\Http\Requests\Admin\StoreUpdateDetailPlanRequest;
 use App\Interfaces\Admin\DetailPlanRepositoryInterface;
 use App\Interfaces\Admin\PlanRepositoryInterface;
 use Illuminate\Http\Request;
