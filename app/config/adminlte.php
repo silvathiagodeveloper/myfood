@@ -315,6 +315,12 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon_color' => 'yellow',
+            'icon' => 'fas fa-users',
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

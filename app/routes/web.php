@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -87,6 +88,12 @@ Route::prefix('admin')
     Route::get('plans/{id}/profiles/{permission}/detach', [PlanProfileController::class, 'profilesDetach'])->name('plans.profiles.detach');
     Route::any('profiles/{id}/plans/search', [PlanProfileController::class, 'searchPlans']       )->name('profiles.plans.search');
     Route::get('profiles/{id}/plans',        [PlanProfileController::class, 'plans']             )->name('profiles.plans');
+
+    /**
+     * Users Routes
+     */
+    Route::any('users/search',           [UserController::class, 'search']    )->name('users.search');
+    Route::get('users',                  [UserController::class, 'index']     )->name('users.index');
 });
 
 /**
