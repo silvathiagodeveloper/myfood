@@ -23,7 +23,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function create(array $details) 
     {
-        $details['tenant_id'] = auth()->user()->tenant_id;
+        $authUser = auth()->user();
+        if(isset($authUser)) {
+            $details['tenant_id'] = $authUser->tenant_id;
+        }
         $details['password'] = Hash::make($details['password']);
         return parent::create($details);
     }
