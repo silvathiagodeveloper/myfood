@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePermissionController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -100,6 +101,18 @@ Route::prefix('admin')
     Route::get('users/{url}',            [UserController::class, 'show']      )->name('users.show');
     Route::get('users/{url}/edit',       [UserController::class, 'edit']      )->name('users.edit');
     Route::delete('users/{id}',          [UserController::class, 'destroy']   )->name('users.destroy');
+
+    /**
+     * Categories Routes
+     */
+    Route::any( 'categories/search',        [CategoryController::class, 'search']   )->name('categories.search');
+    Route::get( 'categories',               [CategoryController::class, 'index']    )->name('categories.index');
+    Route::get( 'categories/create',        [CategoryController::class, 'create']   )->name('categories.create');
+    Route::post('categories',               [CategoryController::class, 'store']    )->name('categories.store');
+    Route::put( 'categories/{url}',         [CategoryController::class, 'update']   )->name('categories.update');
+    Route::get( 'categories/{url}',         [CategoryController::class, 'show']     )->name('categories.show');
+    Route::get( 'categories/{url}/edit',    [CategoryController::class, 'edit']     )->name('categories.edit');
+    Route::delete('categories/{id}',        [CategoryController::class, 'destroy']  )->name('categories.destroy');
 });
 
 /**

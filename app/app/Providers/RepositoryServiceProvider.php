@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Admin\ACL\PlanProfileRepositoryInterface;
 use App\Interfaces\Admin\ACL\ProfilePermissionRepositoryInterface;
+use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\DetailPlanRepositoryInterface;
 use App\Interfaces\Admin\PermissionRepositoryInterface;
 use App\Interfaces\Admin\PlanRepositoryInterface;
@@ -12,6 +13,7 @@ use App\Interfaces\Admin\TenantRepositoryInterface;
 use App\Interfaces\Admin\UserRepositoryInterface;
 use App\Repositories\Admin\ACL\PlanProfileRepository;
 use App\Repositories\Admin\ACL\ProfilePermissionRepository;
+use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\DetailPlanRepository;
 use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\PlanRepository;
@@ -37,6 +39,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PlanProfileRepositoryInterface::class, PlanProfileRepository::class);
         $this->app->bind(TenantRepositoryInterface::class, TenantRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
     }
 
     /**

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Admin\Category;
 use App\Models\Admin\Plan;
 use App\Models\Admin\Tenant;
+use App\Observers\CategoryObserver;
 use App\Observers\PlanObserver;
 use App\Observers\TenantObserver;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }

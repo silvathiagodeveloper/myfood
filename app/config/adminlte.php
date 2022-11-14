@@ -317,8 +317,14 @@ return [
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
-            'icon_color' => 'yellow',
+            'icon_color' => 'white',
             'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-layer-group',
         ],
         [
             'text'    => 'multilevel',

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\Admin\CategorySeeder;
 use Database\Seeders\Admin\DetailPlanSeeder;
 use Database\Seeders\Admin\PermissionSeeder;
 use Database\Seeders\Admin\PlanSeeder;
@@ -30,7 +31,8 @@ class DatabaseSeeder extends Seeder
                     ProfileSeeder::class,
                     PermissionSeeder::class,
                     TenantSeeder::class,
-                    UserSeeder::class
+                    UserSeeder::class,
+                    CategorySeeder::class
                 ]
             );
         }
