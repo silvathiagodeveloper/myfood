@@ -94,6 +94,12 @@ Route::prefix('admin')
      */
     Route::any('users/search',           [UserController::class, 'search']    )->name('users.search');
     Route::get('users',                  [UserController::class, 'index']     )->name('users.index');
+    Route::get('users/create',           [UserController::class, 'create']    )->name('users.create');
+    Route::post('users',                 [UserController::class, 'store']     )->name('users.store');
+    Route::put('users/{url}',            [UserController::class, 'update']    )->name('users.update');
+    Route::get('users/{url}',            [UserController::class, 'show']      )->name('users.show');
+    Route::get('users/{url}/edit',       [UserController::class, 'edit']      )->name('users.edit');
+    Route::delete('users/{id}',          [UserController::class, 'destroy']   )->name('users.destroy');
 });
 
 /**

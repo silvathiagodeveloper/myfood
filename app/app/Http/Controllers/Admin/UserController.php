@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\StoreUpdateUserRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Interfaces\Admin\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -39,13 +40,9 @@ class UserController extends Controller
         return view('admin.pages.users.create');
     }
 
-    public function store(StoreUpdateUserRequest $request) 
+    public function store(StoreUserRequest $request) 
     {
-        $request->request->add([
-            'tenant_id' => auth()->user()->tenant_id
-        ]);
         $this->repository->create($request->all());
-
         return redirect()->route('users.index');
     }
 
@@ -73,9 +70,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(StoreUpdateUserRequest $request, int $id) 
+    public function update(UpdateUserRequest $request, int $id) 
     {
-        $this->repository->update($id, $request->except(['_token','_method']));
+        $data = $request->only('name', 'email');
+        if($request->password) {
+            $data['password'] = $request->password;
+        }
+        $this->repository->update($id, $data);
 
         return redirect()->route('users.index');
     }

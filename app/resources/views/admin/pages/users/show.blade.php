@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', "Perfil - {$profile->name}")
+@section('title', "Usuário - {$user->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('profiles.show', $profile->id) }}">{{ $profile->name }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuários</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></li>
     </ol>
-    <h1>Perfil - <b>{{ $profile->name }}</b></h1>
+    <h1>Usuário - <b>{{ $user->name }}</b></h1>
 @stop
 
 @section('content')
@@ -17,13 +17,13 @@
             @include('admin.includes.alerts')
             <ul>
                 <li>
-                    <strong>Nome:</strong> {{ $profile->name }}
+                    <strong>Nome:</strong> {{ $user->name }}
                 </li>
                 <li>
-                    <strong>Descrição:</strong> {{ $profile->description }}
+                    <strong>Email:</strong> {{ $user->email }}
                 </li>
             </ul>
-            <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST">
+            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" id="btnDelete" class="btn btn-danger"><i class="fas fa-trash"></i> Apagar</button>
