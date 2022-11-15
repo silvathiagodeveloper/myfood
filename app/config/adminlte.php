@@ -315,6 +315,24 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-layer-group',
+        ],
+        [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-boxes',
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
