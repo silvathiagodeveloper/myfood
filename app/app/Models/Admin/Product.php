@@ -4,9 +4,9 @@ namespace App\Models\Admin;
 
 use App\Models\BaseModel;
 
-class Category extends BaseModel
+class Product extends BaseModel
 {
-    protected $fillable = [ 'tenant_id', 'name', 'url','description'];
+    protected $fillable = ['tenant_id', 'name', 'url', 'price', 'description', 'image'];
 
     public function scopeFilter($q, $filter) 
     {
@@ -15,10 +15,10 @@ class Category extends BaseModel
     }
 
     /**
-     * Get Products
+     * Get Categories
      */
-    public function products()
+    public function categories()
     {
-        return $this->belongsToMany(Product::class, 'product_category');
+        return $this->belongsToMany(Category::class, 'product_category');
     }
 }

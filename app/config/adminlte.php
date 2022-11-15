@@ -327,6 +327,12 @@ return [
             'icon' => 'fas fa-layer-group',
         ],
         [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-boxes',
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

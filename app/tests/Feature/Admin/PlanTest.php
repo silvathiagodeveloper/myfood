@@ -3,7 +3,6 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Admin\Plan;
-use App\Models\User;
 use App\Repositories\Admin\PlanRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

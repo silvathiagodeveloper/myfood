@@ -55,18 +55,10 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function destroy($url) 
+    public function destroy($id) 
     {
-        try {
-            $this->repository->delete($url);
-
-            return redirect()->route('categories.index');
-            
-        } catch(CategoryWithDetailsException $err) {
-
-            return redirect()->back()
-                             ->withErrors([$err->getMessage()]);
-        }
+        $this->repository->delete($id);
+        return redirect()->route('categories.index');          
     }
 
     public function edit($url) 

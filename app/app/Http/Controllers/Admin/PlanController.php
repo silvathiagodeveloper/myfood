@@ -16,6 +16,7 @@ class PlanController extends Controller
     {
         $this->repository = $planRepository;
     }
+
     public function index()
     {
         $plans = $this->repository->getAllPaginate(config('constants.max_paginate'));

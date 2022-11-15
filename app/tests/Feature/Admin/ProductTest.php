@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Models\Admin\Category;
+use App\Models\Admin\Product;
 use App\Models\User;
-use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\ProductRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
-class CategoryTest extends TestCase
+class ProductTest extends TestCase
 {
     use RefreshDatabase;
     use WithoutMiddleware;
@@ -18,11 +18,11 @@ class CategoryTest extends TestCase
     {
         session()->put(['user' => $user]);
         $result = [];
-        $categoryRep = new CategoryRepository();
-        $result['category2'] = $categoryRep->create(['name' => 'Test 2']);
-        $result['category1'] = $categoryRep->create(['name' => 'Test 1']);
-        $result['category3'] = $categoryRep->create(['name' => 'Test 3']);
-        $result['category4'] = $categoryRep->create(['name' => 'Outro']);
+        $productRep = new ProductRepository();
+        $result['product1'] = $productRep->create(['name' => 'Test 1', 'price' => 0, 'description' => 'Test 1 d']);
+        $result['product2'] = $productRep->create(['name' => 'Test 2', 'price' => 2, 'description' => 'Test 2 d']);
+        $result['product3'] = $productRep->create(['name' => 'Test 3', 'price' => 4, 'description' => 'Test 3 d']);
+        $result['product4'] = $productRep->create(['name' => 'Outro', 'price' => 6, 'description' => 'Outro d']);
         return $result;
     }
     /**
@@ -33,14 +33,14 @@ class CategoryTest extends TestCase
     public function test_index()
     {
         $user = $this->auth();
-        Category::factory(10)->create(['tenant_id' => $user->tenant_id]);
+        Product::factory(10)->create(['tenant_id' => $user->tenant_id]);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('GET', 'admin/categories');
+                         ->call('GET', 'admin/products');
         $response->assertStatus(200);    
-        $response->assertViewHas('categories');
-        $categories = $response->original['categories'];
-        $this->assertEquals(6, count($categories));       
+        $response->assertViewHas('products');
+        $products = $response->original['products'];
+        $this->assertEquals(6, count($products));       
     }
 
     public function test_search()
@@ -49,11 +49,11 @@ class CategoryTest extends TestCase
         $this->init($user);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('POST', 'admin/categories/search', ['filter' => 'Test']);
+                         ->call('POST', 'admin/products/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
-        $response->assertViewHas('categories');
-        $categories = $response->original['categories'];
-        $this->assertEquals(3, count($categories));
+        $response->assertViewHas('products');
+        $products = $response->original['products'];
+        $this->assertEquals(3, count($products));
     }
 
     public function test_create()
@@ -61,9 +61,9 @@ class CategoryTest extends TestCase
         $user = $this->auth();
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('GET', 'admin/categories/create');
+                         ->call('GET', 'admin/products/create');
         $response->assertStatus(200);
-        $response->assertViewIs('admin.pages.categories.create');
+        $response->assertViewIs('admin.pages.products.create');
     }
 
     public function test_store() 
@@ -71,9 +71,9 @@ class CategoryTest extends TestCase
         $user = $this->auth();
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('POST', 'admin/categories', ['name' => 'Test']);
+                         ->call('POST', 'admin/products', ['name' => 'Test', 'price' => 0, 'description' => 'Test d']);
         $response->assertStatus(302);    
-        $response->assertRedirect('admin/categories');
+        $response->assertRedirect('admin/products');
     }
 
     public function test_show() 
@@ -82,11 +82,11 @@ class CategoryTest extends TestCase
         $seeds = $this->init($user);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('get', 'admin/categories/'.$seeds['category1']->url);
+                         ->call('get', 'admin/products/'.$seeds['product1']->url);
         $response->assertStatus(200);    
-        $response->assertViewHas('category');
-        $category = $response->original['category'];
-        $this->assertEquals('Test 1', $category['name']);
+        $response->assertViewHas('product');
+        $product = $response->original['product'];
+        $this->assertEquals('Test 1', $product['name']);
     }
 
     public function test_destroy() 
@@ -95,9 +95,9 @@ class CategoryTest extends TestCase
         $seeds = $this->init($user);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('DELETE', "admin/categories/".$seeds['category1']->id);
+                         ->call('DELETE', "admin/products/".$seeds['product1']->id);
         $response->assertStatus(302);    
-        $response->assertRedirect('admin/categories');
+        $response->assertRedirect('admin/products');
     }
 
     public function test_edit() 
@@ -106,9 +106,9 @@ class CategoryTest extends TestCase
         $seeds = $this->init($user);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('get', 'admin/categories/'.$seeds['category1']->url.'/edit');
+                         ->call('get', 'admin/products/'.$seeds['product1']->url.'/edit');
         $response->assertStatus(200);
-        $response->assertViewIs('admin.pages.categories.edit');
+        $response->assertViewIs('admin.pages.products.edit');
     }
 
     public function test_update() 
@@ -117,8 +117,8 @@ class CategoryTest extends TestCase
         $seeds = $this->init($user);
         $response = $this->actingAs($user)
                          ->withSession(['user' => $user])
-                         ->call('PUT', "admin/categories/".$seeds['category1']->id, ['name' => 'Test']);
+                         ->call('PUT', "admin/products/".$seeds['product1']->id, ['name' => 'Test', 'price' => 0, 'description' => 'Test d']);
         $response->assertStatus(302);    
-        $response->assertRedirect('admin/categories');
+        $response->assertRedirect('admin/products');
     }
 }
