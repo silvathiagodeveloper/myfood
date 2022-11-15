@@ -29,7 +29,7 @@ class StoreUpdateProductRequest extends FormRequest
             'name' => "required|min:3|max:255|unique:products,name,{$id},id",
             'description' => 'nullable|min:3|max:2000',
             'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|max:2048',
         ];
     }
 }

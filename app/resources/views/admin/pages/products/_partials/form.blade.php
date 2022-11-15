@@ -5,6 +5,9 @@
 </div>
 <div class="form-group">
     <label for="image">Imagem:</label>
+    @if(!empty($product->image))
+        <img src="{{ url("storage/".($product->image ?? 'blank.jpg')) }}" class="img-size-50"/>
+    @endif
     <input type="file" id="image" name="image" class="form-control" placeholder="image:" value="{{$product->image ?? old('image')}}">
 </div>
 <div class="form-group">

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreUpdateProductRequest;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Services\Tenant\TenantManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -66,6 +67,10 @@ class ProductController extends Controller
 
     public function destroy($id) 
     {
+        $product = $this->repository->getById($id);
+        if(Storage::exists($product->image)) {
+            Storage::delete($product->image);
+        }
         $this->repository->delete($id);
 
         return redirect()->route('products.index');
@@ -87,6 +92,10 @@ class ProductController extends Controller
         $tenant = app(TenantManager::class)->getTenant();
 
         if($request->hasFile('image') && $request->image->isValid()) {
+            $product = $this->repository->getById($id);
+            if(Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
             $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
         }
 

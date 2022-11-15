@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "Producto - {$product->name}")
+@section('title', "Produto - {$product->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
@@ -8,7 +8,7 @@
         <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produtos</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></li>
     </ol>
-    <h1>Producto - <b>{{ $product->name }}</b></h1>
+    <h1>Produto - <b>{{ $product->name }}</b></h1>
 @stop
 
 @section('content')
@@ -17,7 +17,9 @@
             @include('admin.includes.alerts')
             <ul>
                 <li>
-                     {{ $product->image }}
+                    @if(!empty($product->image))
+                        <img src="{{ url("storage/".($product->image ?? 'blank.jpg')) }}" class="img-size-50"/>
+                    @endif
                 </li>
                 <li>
                     <strong>Nome:</strong> {{ $product->name }}

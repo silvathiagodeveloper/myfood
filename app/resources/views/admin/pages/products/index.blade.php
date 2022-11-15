@@ -27,6 +27,7 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
+                        <th>Imagem</th>
                         <th>Nome</th>
                         <th>Preço</th>
                         <th>Ações</th>
@@ -35,6 +36,11 @@
                 <tbody>
                     @foreach($products as $product)
                     <tr>
+                        <td>
+                            @if(!empty($product->image))
+                                <img src="{{ url("storage/".($product->image ?? 'blank.jpg')) }}" class="img-size-50"/>
+                            @endif
+                        </td>
                         <td>{{ $product->name }}</td>
                         <td>{{ number_format($product->price, 2, ',', '.') }}</td>
                         <td style="width: 390px;">

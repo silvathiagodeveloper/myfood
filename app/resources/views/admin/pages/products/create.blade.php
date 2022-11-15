@@ -14,7 +14,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form id="frmMain" action="{{ route('products.store') }}" class="form" method="POST">
+            <form id="frmMain" action="{{ route('products.store') }}" class="form" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('admin.pages.products._partials.form')
             </form>
