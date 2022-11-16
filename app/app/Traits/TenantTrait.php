@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Observers\GlobalTenantObserver;
+use App\Observers\Admin\GlobalTenantObserver;
 use App\Scopes\TenantScope;
 
 trait TenantTrait

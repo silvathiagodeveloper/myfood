@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function destroy($id) 
     {
         $product = $this->repository->getById($id);
-        if(Storage::exists($product->image)) {
+        if(!empty($product->image) && Storage::exists($product->image)) {
             Storage::delete($product->image);
         }
         $this->repository->delete($id);

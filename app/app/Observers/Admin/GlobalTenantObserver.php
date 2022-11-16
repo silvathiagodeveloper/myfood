@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Observers;
+namespace App\Observers\Admin;
 
 use App\Services\Tenant\TenantManager;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class GlobalTenantObserver
 {

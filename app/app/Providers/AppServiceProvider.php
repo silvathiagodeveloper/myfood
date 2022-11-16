@@ -5,11 +5,10 @@ namespace App\Providers;
 use App\Models\Admin\Category;
 use App\Models\Admin\Plan;
 use App\Models\Admin\Product;
+use App\Models\Admin\Table;
 use App\Models\Admin\Tenant;
-use App\Observers\CategoryObserver;
-use App\Observers\PlanObserver;
-use App\Observers\ProductObserver;
-use App\Observers\TenantObserver;
+use App\Observers\Admin\TenantObserver;
+use App\Observers\UrlObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -33,9 +32,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-        Plan::observe(PlanObserver::class);
+        Plan::observe(UrlObserver::class);
         Tenant::observe(TenantObserver::class);
-        Category::observe(CategoryObserver::class);
-        Product::observe(ProductObserver::class);
+        Category::observe(UrlObserver::class);
+        Product::observe(UrlObserver::class);
+        Table::observe(UrlObserver::class);
     }
 }
