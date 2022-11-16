@@ -11,6 +11,7 @@ use App\Interfaces\Admin\PlanRepositoryInterface;
 use App\Interfaces\Admin\ProductCategoryRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
+use App\Interfaces\Admin\TableRepositoryInterface;
 use App\Interfaces\Admin\TenantRepositoryInterface;
 use App\Interfaces\Admin\UserRepositoryInterface;
 use App\Repositories\Admin\ACL\PlanProfileRepository;
@@ -22,6 +23,7 @@ use App\Repositories\Admin\PlanRepository;
 use App\Repositories\Admin\ProductCategoryRepository;
 use App\Repositories\Admin\ProductRepository;
 use App\Repositories\Admin\ProfileRepository;
+use App\Repositories\Admin\TableRepository;
 use App\Repositories\Admin\TenantRepository;
 use App\Repositories\Admin\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -46,6 +48,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(ProductCategoryRepositoryInterface::class, ProductCategoryRepository::class);
+        $this->app->bind(TableRepositoryInterface::class, TableRepository::class);
     }
 
     /**

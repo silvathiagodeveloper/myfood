@@ -333,6 +333,12 @@ return [
             'icon' => 'fas fa-boxes',
         ],
         [
+            'text' => 'Mesas',
+            'url'  => 'admin/tables',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-chair',
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

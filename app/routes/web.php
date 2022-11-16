@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -138,6 +139,18 @@ Route::prefix('admin')
     Route::get( 'products/{id}/categories/{category}/detach', [ProductCategoryController::class, 'categoriesDetach'])->name('products.categories.detach');
     Route::any( 'categories/{id}/products/search', [ProductCategoryController::class, 'searchProducts']       )->name('categories.products.search');
     Route::get( 'categories/{id}/products',        [ProductCategoryController::class, 'products']             )->name('categories.products');
+
+    /**
+     * Tables Routes
+     */
+    Route::any( 'tables/search',        [TableController::class, 'search']   )->name('tables.search');
+    Route::get( 'tables',               [TableController::class, 'index']    )->name('tables.index');
+    Route::get( 'tables/create',        [TableController::class, 'create']   )->name('tables.create');
+    Route::post('tables',               [TableController::class, 'store']    )->name('tables.store');
+    Route::put( 'tables/{url}',         [TableController::class, 'update']   )->name('tables.update');
+    Route::get( 'tables/{url}',         [TableController::class, 'show']     )->name('tables.show');
+    Route::get( 'tables/{url}/edit',    [TableController::class, 'edit']     )->name('tables.edit');
+    Route::delete('tables/{id}',        [TableController::class, 'destroy']  )->name('tables.destroy');
 });
 
 /**

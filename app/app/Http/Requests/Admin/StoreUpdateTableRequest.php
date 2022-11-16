@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateCategoryRequest extends FormRequest
+class StoreUpdateTableRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class StoreUpdateCategoryRequest extends FormRequest
 
         return [
             'name' => "required|min:3|max:40",
-            'description' => 'nullable|min:3|max:200'
         ];
     }
 }
