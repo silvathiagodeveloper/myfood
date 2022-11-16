@@ -301,42 +301,49 @@ return [
             'url'  => 'admin/plans',
             'icon_color' => 'yellow',
             'icon' => 'fas fa-list-alt',
+            'can'  => 'plans.show'
         ],
         [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
             'icon_color' => 'yellow',
             'icon' => 'fas fa-tags',
+            'can'  => 'profiles-show'
         ],
         [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
             'icon_color' => 'yellow',
             'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'permissions.show'
         ],
         [
             'text' => 'Usuários',
             'url'  => 'admin/users',
             'icon_color' => 'white',
             'icon' => 'fas fa-users',
+            'can'  => 'users.show'
         ],
         [
             'text' => 'Categorias',
             'url'  => 'admin/categories',
             'icon_color' => 'white',
             'icon' => 'fas fa-layer-group',
+            'can'  => 'categories.show'
         ],
         [
             'text' => 'Produtos',
             'url'  => 'admin/products',
             'icon_color' => 'white',
             'icon' => 'fas fa-boxes',
+            'can'  => 'products.show'
         ],
         [
             'text' => 'Mesas',
             'url'  => 'admin/tables',
             'icon_color' => 'white',
             'icon' => 'fas fa-chair',
+            'can'  => 'tables.show'
         ],
         [
             'text'    => 'multilevel',

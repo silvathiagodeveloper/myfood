@@ -23,6 +23,9 @@ class ProductCategoryController extends Controller
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productCategoryRepository = $productCategoryRepository;
+        $this->middleware("can:products.show", ['only' => ['products', 'searchProducts']]);
+        $this->middleware("can:categories.show", ['only' => ['categories', 'searchCategories', 'categoriesAvailable']]);
+        $this->middleware("can:products.edit", ['only' => ['categoriesAttach', 'categoriesDetach']]);
     }
 
     public function categories(int $idProduct)

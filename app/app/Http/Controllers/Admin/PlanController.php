@@ -15,6 +15,7 @@ class PlanController extends Controller
     public function __construct(PlanRepositoryInterface $planRepository)
     {
         $this->repository = $planRepository;
+        $this->middleware("can:plans");
     }
 
     public function index()

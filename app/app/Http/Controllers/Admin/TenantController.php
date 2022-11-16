@@ -14,6 +14,7 @@ class TenantController extends Controller
     public function __construct(TenantRepositoryInterface $TenantRepository)
     {
         $this->repository = $TenantRepository;
+        $this->middleware("can:tenants");
     }
     public function index()
     {

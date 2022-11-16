@@ -14,6 +14,10 @@ class TableController extends Controller
     public function __construct(TableRepositoryInterface $tableRepository)
     {
         $this->repository = $tableRepository;
+        $this->middleware("can:tables.show", ['only' => ['index','show','search']]);
+        $this->middleware("can:tables.create", ['only' => ['create','store']]);
+        $this->middleware("can:tables.edit", ['only' => ['edit','update']]);
+        $this->middleware("can:tables.destroy", ['only' => ['destroy']]);
     }
     public function index()
     {

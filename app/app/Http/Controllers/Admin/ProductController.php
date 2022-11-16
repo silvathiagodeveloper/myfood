@@ -16,6 +16,10 @@ class ProductController extends Controller
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->repository = $productRepository;
+        $this->middleware("can:products.show", ['only' => ['index','show','search']]);
+        $this->middleware("can:products.create", ['only' => ['create','store']]);
+        $this->middleware("can:products.edit", ['only' => ['edit','update']]);
+        $this->middleware("can:products.destroy", ['only' => ['destroy']]);
     }
 
     public function index()

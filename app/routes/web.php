@@ -158,5 +158,8 @@ Route::prefix('admin')
  */
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
 Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('site.plan');
+Route::get('testeACL', function() {
+    dd(auth()->user()->permissions());   
+});
 
 require __DIR__.'/auth.php';

@@ -28,10 +28,10 @@ class DatabaseSeeder extends Seeder
         if (App::Environment() === 'local') {
             $this->call(
                 [
+                    PermissionSeeder::class,
+                    ProfileSeeder::class,
                     PlanSeeder::class,
                     DetailPlanSeeder::class,
-                    ProfileSeeder::class,
-                    PermissionSeeder::class,
                     TenantSeeder::class,
                     UserSeeder::class,
                     CategorySeeder::class,

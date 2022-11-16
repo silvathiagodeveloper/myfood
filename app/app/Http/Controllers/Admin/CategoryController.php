@@ -14,6 +14,10 @@ class CategoryController extends Controller
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->repository = $categoryRepository;
+        $this->middleware("can:categories.show", ['only' => ['index','show','search']]);
+        $this->middleware("can:categories.create", ['only' => ['create','store']]);
+        $this->middleware("can:categories.edit", ['only' => ['edit','update']]);
+        $this->middleware("can:categories.destroy", ['only' => ['destroy']]);
     }
     public function index()
     {
