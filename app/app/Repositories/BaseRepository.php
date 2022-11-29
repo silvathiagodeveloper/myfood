@@ -12,6 +12,23 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $this->modelName = Model::class;
     }
+    public function first(array $order = null, array $with = null) 
+    {
+        $modelName = $this->modelName;
+        $result = new $modelName();
+        if(isset($order)) {
+            $result = $result->orderBy(implode(',',$order));
+        } 
+
+        if(isset($with)) {
+            foreach($with as $item) {
+                $result = $result->with($item);
+            }
+        } 
+
+        return $result->firstOrFail();
+    }
+
     public function getAll(array $order = null, array $with = null) 
     {
         $modelName = $this->modelName;

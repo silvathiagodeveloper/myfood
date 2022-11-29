@@ -6,6 +6,13 @@ trait UserACLTrait
 {
     public function permissions() : array
     {
+        $permissionsPlan = $this->permissionsPlan();
+        $permissionsRole = $this->permissionsRole();
+        return array_intersect_key($permissionsRole, $permissionsPlan);
+    }
+
+    public function permissionsPlan() : array
+    {
         $profiles = $this->tenant()
                     ->first()
                     ->plan()
@@ -14,6 +21,18 @@ trait UserACLTrait
         $permissions = [];
         foreach($profiles as $profile) {
             foreach($profile->permissions as $permission) {
+                $permissions[$permission->name] = true;
+            }
+        }
+        return $permissions;
+    }
+
+    public function permissionsRole() : array
+    {
+        $roles = $this->roles;
+        $permissions = [];
+        foreach($roles as $role) {
+            foreach($role->permissions as $permission) {
                 $permissions[$permission->name] = true;
             }
         }
