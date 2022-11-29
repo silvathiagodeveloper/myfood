@@ -318,11 +318,18 @@ return [
             'can'  => 'permissions.show'
         ],
         [
+            'text' => 'Funções',
+            'url'  => 'admin/roles',
+            'icon_color' => 'yellow',
+            'icon' => 'fas fa-user-tag',
+            'can'  => 'roles-show'
+        ],
+        [
             'text' => 'Empresas',
             'url'  => 'admin/tenants',
             'icon_color' => 'yellow',
             'icon' => 'fas fa-building',
-            'can'  => 'plans.show'
+            'can'  => 'tenants.show'
         ],
         [
             'text' => 'Usuários',

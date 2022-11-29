@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Admin\Role;
 use App\Models\Admin\Tenant;
 use App\Services\Tenant\TenantManager;
 use App\Traits\UserACLTrait;
@@ -66,5 +67,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    /**
+     * Get Roles
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role');
     }
 }

@@ -1,19 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuários')
+@section('title', "Funções do Usuário {$user->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Usuários</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuários</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('users.roles', $user->id) }}">{{ $user->name }}</a></li>
     </ol>
-    <h1>Usuários <a href="{{ route('users.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
+    <h1>Funções do Usuário {{ $user->name }}<a href="{{ route('users.roles.create', $user->id) }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> Adicionar</a></h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{ route('users.search') }}" method="post">
+            <form action="{{ route('users.roles.search', $user->id) }}" method="post">
                 @csrf
                 <div class="input-group input-group-sm">
                     <input type="text" name="filter" id="filter" placeholder="Nome" class="form-control" value="{{ $filters['filter'] ?? '' }}">
@@ -32,13 +33,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($roles as $role)
                     <tr>
-                        <td>{{ $user->name }}</td>
-                        <td style="width:450px;">
-                            <a href="{{ route('users.show',$user->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                            <a href="{{ route('users.edit',$user->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{{ route('users.roles',$user->id) }}" class="btn btn-warning"><i class="fas fa-tags"></i> Funções</a>
+                        <td>{{ $role->name }}</td>
+                        <td style="width:150px;">
+                            <a href="{{ route('users.roles.detach', [$user->id, $role->id]) }}" class="btn btn-danger"><i class="fas fa-unlink"></i> Desvincular</a>
                         </td>
                     </tr>
                     @endforeach
@@ -47,9 +46,9 @@
         </div>
         <div class="card-footer">
             @if(isset($filters))
-                {!! $users->appends($filters)->links() !!}
+                {!! $roles->appends($filters)->links() !!}
             @else
-                {!! $users->links() !!}
+                {!! $roles->links() !!}
             @endif
         </div>
     </div>

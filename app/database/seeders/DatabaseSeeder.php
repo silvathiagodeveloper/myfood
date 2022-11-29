@@ -10,6 +10,7 @@ use Database\Seeders\Admin\PermissionSeeder;
 use Database\Seeders\Admin\PlanSeeder;
 use Database\Seeders\Admin\ProductSeeder;
 use Database\Seeders\Admin\ProfileSeeder;
+use Database\Seeders\Admin\RoleSeeder;
 use Database\Seeders\Admin\TableSeeder;
 use Database\Seeders\Admin\TenantSeeder;
 use Database\Seeders\Admin\UserSeeder;
@@ -36,7 +37,8 @@ class DatabaseSeeder extends Seeder
                     UserSeeder::class,
                     CategorySeeder::class,
                     ProductSeeder::class,
-                    TableSeeder::class
+                    TableSeeder::class,
+                    RoleSeeder::class
                 ]
             );
         }

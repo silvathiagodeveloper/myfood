@@ -2,10 +2,11 @@
 
 namespace App\Models\Admin;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -18,18 +19,18 @@ class Permission extends Model
     }
 
     /**
-     * Get Profiles
+     * Get Permissions
      */
-    public function profiles()
+    public function permissions()
     {
-        return $this->belongsToMany(Profile::class, 'profile_permission');
+        return $this->belongsToMany(Permission::class, 'role_permission');
     }
 
     /**
-     * Get Roles
+     * Get Users
      */
-    public function roles()
+    public function users()
     {
-        return $this->belongsToMany(Role::class, 'role_permission');
+        return $this->belongsToMany(User::class, 'user_role');
     }
 }
