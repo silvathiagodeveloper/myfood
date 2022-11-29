@@ -21,14 +21,18 @@ class PermissionTest extends TestCase
         $result['permission4'] = $permissionRep->create(['name' => 'Outro']);
         return $result;
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_index()
+
+    public function test_index_error_permission()
     {
         $user = $this->auth();
+        Permission::factory(10)->create();
+        $response = $this->actingAs($user)->call('GET', 'admin/permissions');
+        $response->assertStatus(403);
+    }
+
+     public function test_index()
+    {
+        $user = $this->authAdmin();
         Permission::factory(10)->create();
         $response = $this->actingAs($user)->call('GET', 'admin/permissions');
         $response->assertStatus(200);    
@@ -39,7 +43,7 @@ class PermissionTest extends TestCase
 
     public function test_search()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/permissions/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
@@ -50,7 +54,7 @@ class PermissionTest extends TestCase
 
     public function test_create()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $response = $this->actingAs($user)->call('GET', 'admin/permissions/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.permissions.create');
@@ -58,7 +62,7 @@ class PermissionTest extends TestCase
 
     public function test_store() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $response = $this->actingAs($user)->call('POST', 'admin/permissions', ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/permissions');
@@ -66,7 +70,7 @@ class PermissionTest extends TestCase
 
     public function test_show() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/permissions/'.$seeds['permission1']->id);
         $response->assertStatus(200);    
@@ -77,7 +81,7 @@ class PermissionTest extends TestCase
 
     public function test_destroy() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('DELETE', "admin/permissions/".$seeds['permission1']->id);
         $response->assertStatus(302);    
@@ -86,7 +90,7 @@ class PermissionTest extends TestCase
 
     public function test_edit() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/permissions/'.$seeds['permission1']->id.'/edit');
         $response->assertStatus(200);
@@ -95,7 +99,7 @@ class PermissionTest extends TestCase
 
     public function test_update() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('PUT', "admin/permissions/".$seeds['permission1']->id, ['name' => 'Test']);
         $response->assertStatus(302);    

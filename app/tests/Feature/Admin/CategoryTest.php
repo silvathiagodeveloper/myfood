@@ -25,11 +25,7 @@ class CategoryTest extends TestCase
         $result['category4'] = $categoryRep->create(['name' => 'Outro']);
         return $result;
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function test_index()
     {
         $user = $this->auth();

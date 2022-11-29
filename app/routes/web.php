@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\TenantController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -151,6 +152,15 @@ Route::prefix('admin')
     Route::get( 'tables/{url}',         [TableController::class, 'show']     )->name('tables.show');
     Route::get( 'tables/{url}/edit',    [TableController::class, 'edit']     )->name('tables.edit');
     Route::delete('tables/{id}',        [TableController::class, 'destroy']  )->name('tables.destroy');
+
+    /**
+     * Tenants Routes
+     */
+    Route::any( 'tenants/search',        [TenantController::class, 'search']   )->name('tenants.search');
+    Route::get( 'tenants',               [TenantController::class, 'index']    )->name('tenants.index');
+    Route::put( 'tenants/{url}',         [TenantController::class, 'update']   )->name('tenants.update');
+    Route::get( 'tenants/{url}',         [TenantController::class, 'show']     )->name('tenants.show');
+    Route::get( 'tenants/{url}/edit',    [TenantController::class, 'edit']     )->name('tenants.edit');
 });
 
 /**
@@ -158,8 +168,5 @@ Route::prefix('admin')
  */
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
 Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('site.plan');
-Route::get('testeACL', function() {
-    dd(auth()->user()->permissions());   
-});
 
 require __DIR__.'/auth.php';

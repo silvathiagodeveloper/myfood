@@ -29,9 +29,17 @@ class PlanProfileTest extends TestCase
         return $result;
     }
 
-    public function test_profiles()
+    public function test_error_permission()
     {
         $user = $this->auth();
+        $seeds = $this->init();
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles');
+        $response->assertStatus(403);
+    }
+
+    public function test_profiles()
+    {
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles');
         $response->assertStatus(200);    
@@ -42,7 +50,7 @@ class PlanProfileTest extends TestCase
 
     public function test_plans()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/plans');
         $response->assertStatus(200);    
@@ -53,7 +61,7 @@ class PlanProfileTest extends TestCase
 
     public function test_searchProfiles()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->id.'/profiles/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -64,7 +72,7 @@ class PlanProfileTest extends TestCase
 
     public function test_searchPlans()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/plans/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -75,7 +83,7 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAvailable()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create');
         $response->assertStatus(200);    
@@ -86,7 +94,7 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAvailableFilter()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->id.'/profiles/create',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -97,7 +105,7 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesAttach()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call(
             'POST', 
@@ -110,7 +118,7 @@ class PlanProfileTest extends TestCase
 
     public function test_profilesDetach()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call(
             'GET', 

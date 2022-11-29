@@ -34,11 +34,13 @@
                     <strong>Descrição:</strong> {{ $product->description }}
                 </li>
             </ul>
-            <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" id="btnDelete" class="btn btn-danger"><i class="fas fa-trash"></i> Apagar</button>
-            </form>
+            @can('products.destroy')
+                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" id="btnDelete" class="btn btn-danger"><i class="fas fa-trash"></i> Apagar</button>
+                </form>
+            @endcan
         </div>
     </div>
 @stop

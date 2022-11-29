@@ -26,14 +26,18 @@ class PlanDetailTest extends TestCase
             'name' => 'Detail 2']);
         return $result;
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_index()
+
+    public function test_index_error_permission()
     {
         $user = $this->auth();
+        $seeds = $this->init();
+        $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details');
+        $response->assertStatus(403);    
+    }
+
+    public function test_index()
+    {
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details');
         $response->assertStatus(200);    
@@ -44,7 +48,7 @@ class PlanDetailTest extends TestCase
 
     public function test_search()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/search', ['filter' => 'Detail 1']);
         $response->assertStatus(200);    
@@ -55,7 +59,7 @@ class PlanDetailTest extends TestCase
 
     public function test_create()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/plans/'.$seeds['plan1']->url.'/details/create');
         $response->assertStatus(200);
@@ -64,7 +68,7 @@ class PlanDetailTest extends TestCase
 
     public function test_store() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/plans/'.$seeds['plan1']->url.'/details', ['name' => 'Detail']);
         $response->assertStatus(302);    
@@ -73,7 +77,7 @@ class PlanDetailTest extends TestCase
 
     public function test_show() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/plans/test1/details/'.$seeds['detail1']->id);
         $response->assertStatus(200);    
@@ -84,7 +88,7 @@ class PlanDetailTest extends TestCase
 
     public function test_destroy() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('DELETE', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id);
         $response->assertStatus(302);    
@@ -93,7 +97,7 @@ class PlanDetailTest extends TestCase
 
     public function test_edit() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id.'/edit');
         $response->assertStatus(200);
@@ -102,7 +106,7 @@ class PlanDetailTest extends TestCase
 
     public function test_update() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('PUT', 'admin/plans/'.$seeds['plan1']->url.'/details/'.$seeds['detail1']->id, ['name' => 'Test', 'price' => 5]);
         $response->assertStatus(302);    

@@ -318,6 +318,13 @@ return [
             'can'  => 'permissions.show'
         ],
         [
+            'text' => 'Empresas',
+            'url'  => 'admin/tenants',
+            'icon_color' => 'yellow',
+            'icon' => 'fas fa-building',
+            'can'  => 'plans.show'
+        ],
+        [
             'text' => 'Usuários',
             'url'  => 'admin/users',
             'icon_color' => 'white',

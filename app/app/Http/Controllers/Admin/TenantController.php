@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\StoreUpdateTenantRequest;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\TenantRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TenantController extends Controller
 {
@@ -18,40 +19,28 @@ class TenantController extends Controller
     }
     public function index()
     {
-        $Tenants = $this->repository->getAllPaginate(config('constants.max_paginate'));
+        $tenants = $this->repository->getAllPaginate(config('constants.max_paginate'));
 
-        return view('admin.pages.Tenants.index', [
-            'Tenants' => $Tenants
+        return view('admin.pages.tenants.index', [
+            'tenants' => $tenants
         ]);
     }
 
     public function search(Request $request)
     {
-        $Tenants = $this->repository->search($request->filter,config('constants.max_paginate'));
+        $tenants = $this->repository->search($request->filter,config('constants.max_paginate'));
         $filters = $request->except('_token');
-        return view('admin.pages.Tenants.index', [
-            'Tenants' => $Tenants,
+        return view('admin.pages.tenants.index', [
+            'tenants' => $tenants,
             'filters' => $filters
         ]);
     }
 
-    public function create()
-    {
-        return view('admin.pages.Tenants.create');
-    }
-
-    public function store(StoreUpdateTenantRequest $request) 
-    {
-        $this->repository->create($request->all());
-
-        return redirect()->route('Tenants.index');
-    }
-
     public function show($id) 
     {
-        $Tenant = $this->repository->getById($id);
-        return view('admin.pages.Tenants.show',[
-            'Tenant' => $Tenant
+        $tenant = $this->repository->getById($id);
+        return view('admin.pages.tenants.show',[
+            'tenant' => $tenant
         ]);
     }
 
@@ -59,22 +48,30 @@ class TenantController extends Controller
     {
         $this->repository->delete($id);
 
-        return redirect()->route('Tenants.index');
+        return redirect()->route('tenants.index');
     }
 
     public function edit($id) 
     {
-        $Tenant = $this->repository->getById($id);
+        $tenant = $this->repository->getById($id);
 
-        return view('admin.pages.Tenants.edit',[
-            'Tenant' => $Tenant
+        return view('admin.pages.tenants.edit',[
+            'tenant' => $tenant
         ]);
     }
 
     public function update(StoreUpdateTenantRequest $request, int $id) 
     {
+        if($request->hasFile('logo') && $request->logo->isValid()) {
+            $tenant = $this->repository->getById($id);
+            if(Storage::exists($tenant->logo)) {
+                Storage::delete($tenant->logo);
+            }
+            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}/logos");
+        }
+
         $this->repository->update($id, $request->except(['_token','_method']));
 
-        return redirect()->route('Tenants.index');
+        return redirect()->route('tenants.index');
     }
 }

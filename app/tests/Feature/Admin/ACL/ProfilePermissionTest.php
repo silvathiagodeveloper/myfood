@@ -29,9 +29,17 @@ class ProfilePermissionTest extends TestCase
         return $result;
     }
 
-    public function test_permissions()
+    public function test_error_permission()
     {
         $user = $this->auth();
+        $seeds = $this->init();
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions');
+        $response->assertStatus(403);
+    }
+
+    public function test_permissions()
+    {
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions');
         $response->assertStatus(200);    
@@ -42,7 +50,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_profiles()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/permissions/'.$seeds['permission1']->id.'/profiles');
         $response->assertStatus(200);    
@@ -53,7 +61,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_searchPermissions()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -64,7 +72,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_searchProfiles()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/permissions/'.$seeds['permission1']->id.'/profiles/search',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -75,7 +83,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAvailable()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create');
         $response->assertStatus(200);    
@@ -86,7 +94,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAvailableFilter()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles/'.$seeds['profile1']->id.'/permissions/create',['filter' => 'Test 1']);
         $response->assertStatus(200);    
@@ -97,7 +105,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsAttach()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call(
             'POST', 
@@ -110,7 +118,7 @@ class ProfilePermissionTest extends TestCase
 
     public function test_permissionsDetach()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call(
             'GET', 
