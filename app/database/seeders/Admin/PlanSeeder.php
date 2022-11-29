@@ -16,6 +16,15 @@ class PlanSeeder extends Seeder
      */
     public function run()
     {
-        Plan::factory(10)->create();
+        $plan = Plan::create(
+            [
+                'name'    => 'Business',
+                'url'     => 'business',
+                'price'   => 149,
+                'description' => 'Módulos completos'
+            ]
+        );
+        $plan->profiles()->attach([1]);
+        Plan::factory(9)->create();
     }
 }

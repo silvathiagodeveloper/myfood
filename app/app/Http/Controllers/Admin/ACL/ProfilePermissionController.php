@@ -23,6 +23,8 @@ class ProfilePermissionController extends Controller
         $this->profileRepository = $profileRepository;
         $this->permissionRepository = $permissionRepository;
         $this->profilePermissionRepository = $profilePermissionRepository;
+        $this->middleware("can:permissions");
+        $this->middleware("can:profiles");        
     }
 
     public function permissions(int $idProfile)

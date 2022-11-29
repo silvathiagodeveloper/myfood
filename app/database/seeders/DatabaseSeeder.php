@@ -10,6 +10,8 @@ use Database\Seeders\Admin\PermissionSeeder;
 use Database\Seeders\Admin\PlanSeeder;
 use Database\Seeders\Admin\ProductSeeder;
 use Database\Seeders\Admin\ProfileSeeder;
+use Database\Seeders\Admin\RoleSeeder;
+use Database\Seeders\Admin\TableSeeder;
 use Database\Seeders\Admin\TenantSeeder;
 use Database\Seeders\Admin\UserSeeder;
 use Illuminate\Database\Seeder;
@@ -27,14 +29,16 @@ class DatabaseSeeder extends Seeder
         if (App::Environment() === 'local') {
             $this->call(
                 [
+                    PermissionSeeder::class,
+                    ProfileSeeder::class,
                     PlanSeeder::class,
                     DetailPlanSeeder::class,
-                    ProfileSeeder::class,
-                    PermissionSeeder::class,
                     TenantSeeder::class,
                     UserSeeder::class,
                     CategorySeeder::class,
-                    ProductSeeder::class
+                    ProductSeeder::class,
+                    TableSeeder::class,
+                    RoleSeeder::class
                 ]
             );
         }

@@ -45,8 +45,12 @@
                         <td>{{ number_format($product->price, 2, ',', '.') }}</td>
                         <td style="width: 390px;">
                             <a href="{{ route('products.show',$product->url) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
-                            <a href="{{ route('products.edit',$product->url) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{{ route('products.categories',$product->id) }}" class="btn btn-warning"><i class="fas fa-tags"></i> Categorias</a>
+                            @can('products.edit')
+                                <a href="{{ route('products.edit',$product->url) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+                            @endcan
+                            @can('categories.show')
+                                <a href="{{ route('products.categories',$product->id) }}" class="btn btn-warning"><i class="fas fa-tags"></i> Categorias</a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

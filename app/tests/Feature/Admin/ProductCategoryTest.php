@@ -7,12 +7,13 @@ use App\Repositories\Admin\ProductCategoryRepository;
 use App\Repositories\Admin\ProductRepository;
 use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class ProductCategoryTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     private function init(User $user) : array
     {

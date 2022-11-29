@@ -23,6 +23,8 @@ class PlanProfileController extends Controller
         $this->planRepository = $planRepository;
         $this->profileRepository = $profileRepository;
         $this->planProfileRepository = $planProfileRepository;
+        $this->middleware("can:plans");
+        $this->middleware("can:profiles");        
     }
 
     public function profiles(int $idPlan)

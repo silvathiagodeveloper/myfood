@@ -14,6 +14,7 @@ class ProfileController extends Controller
     public function __construct(ProfileRepositoryInterface $profileRepository)
     {
         $this->repository = $profileRepository;
+        $this->middleware("can:profiles");
     }
     public function index()
     {

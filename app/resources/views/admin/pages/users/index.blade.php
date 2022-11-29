@@ -38,6 +38,7 @@
                         <td style="width:450px;">
                             <a href="{{ route('users.show',$user->id) }}" class="btn btn-info"><i class="fas fa-eye"></i> Ver</a>
                             <a href="{{ route('users.edit',$user->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+                            <a href="{{ route('users.roles',$user->id) }}" class="btn btn-warning"><i class="fas fa-tags"></i> Funções</a>
                         </td>
                     </tr>
                     @endforeach

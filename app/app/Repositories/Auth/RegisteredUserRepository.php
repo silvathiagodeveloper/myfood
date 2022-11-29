@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Auth;
 
+use App\Events\TenantCreated;
 use App\Interfaces\Auth\RegisteredUserRepositoryInterface;
 use App\Repositories\Admin\TenantRepository;
 use App\Repositories\Admin\UserRepository;
@@ -23,11 +24,15 @@ class RegisteredUserRepository implements RegisteredUserRepositoryInterface
 
         $userRep = new UserRepository();
 
-        return $userRep->create([
+        $user = $userRep->create([
             'name'      => $data['name'],
             'email'     => $data['email'],
             'tenant_id' => $tenant->id,
             'password'  => Hash::make( $data['password']),
         ]);
+
+        event(new TenantCreated($user));
+
+        return $user;
     }
 }

@@ -19,17 +19,13 @@ class CategoryTest extends TestCase
         session()->put(['user' => $user]);
         $result = [];
         $categoryRep = new CategoryRepository();
-        $result['category2'] = $categoryRep->create(['name' => 'Test 2']);
         $result['category1'] = $categoryRep->create(['name' => 'Test 1']);
+        $result['category2'] = $categoryRep->create(['name' => 'Test 2']);
         $result['category3'] = $categoryRep->create(['name' => 'Test 3']);
         $result['category4'] = $categoryRep->create(['name' => 'Outro']);
         return $result;
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function test_index()
     {
         $user = $this->auth();

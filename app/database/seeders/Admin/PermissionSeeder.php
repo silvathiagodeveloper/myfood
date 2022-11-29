@@ -15,6 +15,28 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::factory(10)->create();
+        $modules = ['users', 'categories', 'products', 'tables'];
+        $permissions = [];
+        foreach($modules as $module) {
+            array_push($permissions, [
+                'name'    => "{$module}.show",
+                'description' => "Listar ou exibir {$module}"
+            ],
+            [
+                'name'    => "{$module}.create",
+                'description' => "Criar {$module}"
+            ],
+            [
+                'name'    => "{$module}.edit",
+                'description' => "Editar {$module}"
+            ],
+            [
+                'name'    => "{$module}.destroy",
+                'description' => "Excluir {$module}"
+            ]);
+        }
+        foreach($permissions as $permission) {
+            Permission::create($permission);
+        }
     }
 }

@@ -21,14 +21,18 @@ class ProfileTest extends TestCase
         $result['profile4'] = $profileRep->create(['name' => 'Outro']);
         return $result;
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_index()
+
+    public function test_index_error_permission()
     {
         $user = $this->auth();
+        Profile::factory(10)->create();
+        $response = $this->actingAs($user)->call('GET', 'admin/profiles');
+        $response->assertStatus(403);     
+    }
+
+    public function test_index()
+    {
+        $user = $this->authAdmin();
         Profile::factory(10)->create();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles');
         $response->assertStatus(200);    
@@ -39,7 +43,7 @@ class ProfileTest extends TestCase
 
     public function test_search()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $this->init();
         $response = $this->actingAs($user)->call('POST', 'admin/profiles/search', ['filter' => 'Test']);
         $response->assertStatus(200);    
@@ -50,7 +54,7 @@ class ProfileTest extends TestCase
 
     public function test_create()
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $response = $this->actingAs($user)->call('GET', 'admin/profiles/create');
         $response->assertStatus(200);
         $response->assertViewIs('admin.pages.profiles.create');
@@ -58,7 +62,7 @@ class ProfileTest extends TestCase
 
     public function test_store() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $response = $this->actingAs($user)->call('POST', 'admin/profiles', ['name' => 'Test']);
         $response->assertStatus(302);    
         $response->assertRedirect('admin/profiles');
@@ -66,7 +70,7 @@ class ProfileTest extends TestCase
 
     public function test_show() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/profiles/'.$seeds['profile1']->id);
         $response->assertStatus(200);    
@@ -77,7 +81,7 @@ class ProfileTest extends TestCase
 
     public function test_destroy() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('DELETE', "admin/profiles/".$seeds['profile1']->id);
         $response->assertStatus(302);    
@@ -86,7 +90,7 @@ class ProfileTest extends TestCase
 
     public function test_edit() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('get', 'admin/profiles/'.$seeds['profile1']->id.'/edit');
         $response->assertStatus(200);
@@ -95,7 +99,7 @@ class ProfileTest extends TestCase
 
     public function test_update() 
     {
-        $user = $this->auth();
+        $user = $this->authAdmin();
         $seeds = $this->init();
         $response = $this->actingAs($user)->call('PUT', "admin/profiles/".$seeds['profile1']->id, ['name' => 'Test']);
         $response->assertStatus(302);    
