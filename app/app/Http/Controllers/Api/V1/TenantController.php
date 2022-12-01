@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\Admin\StoreUpdateTenantRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\TenantResource;
+use App\Http\Resources\V1\TenantResourceCollection;
 use App\Interfaces\Admin\TenantRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,59 +19,17 @@ class TenantController extends Controller
         $this->repository = $TenantRepository;
         //$this->middleware("can:tenants");
     }
-    public function index()
+    public function index(Request $request)
     {
-        $tenants = $this->repository->getAllPaginate(config('constants.max_paginate'));
+        $perPage = (int) ($request->per_page ?? config('constants.max_paginate'));
+        $tenants = $this->repository->getAllPaginate($perPage);
 
-        return new TenantResource($tenants);
+        return new TenantResourceCollection($tenants);
     }
 
-    public function search(Request $request)
+    public function show($uuid) 
     {
-        $tenants = $this->repository->search($request->filter,config('constants.max_paginate'));
-        $filters = $request->except('_token');
-        return view('admin.pages.tenants.index', [
-            'tenants' => $tenants,
-            'filters' => $filters
-        ]);
-    }
-
-    public function show($id) 
-    {
-        $tenant = $this->repository->getById($id);
-        return view('admin.pages.tenants.show',[
-            'tenant' => $tenant
-        ]);
-    }
-
-    public function destroy($id) 
-    {
-        $this->repository->delete($id);
-
-        return redirect()->route('tenants.index');
-    }
-
-    public function edit($id) 
-    {
-        $tenant = $this->repository->getById($id);
-
-        return view('admin.pages.tenants.edit',[
-            'tenant' => $tenant
-        ]);
-    }
-
-    public function update(StoreUpdateTenantRequest $request, int $id) 
-    {
-        if($request->hasFile('logo') && $request->logo->isValid()) {
-            $tenant = $this->repository->getById($id);
-            if(Storage::exists($tenant->logo)) {
-                Storage::delete($tenant->logo);
-            }
-            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}/logos");
-        }
-
-        $this->repository->update($id, $request->except(['_token','_method']));
-
-        return redirect()->route('tenants.index');
+        $tenant = $this->repository->getByUuid($uuid);
+        return new TenantResource($tenant);
     }
 }

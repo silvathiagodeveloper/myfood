@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TenantResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,10 @@ class TenantResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'logo' => $this->logo ? url("storage/{$this->logo}") : '',
-            'uuid' => $this->uuid,
-            'active' => $this->active,
-            'email' => $this->email,
+            'url' => $this->url,
+            'description' => $this->description,
             'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
         ];
     }

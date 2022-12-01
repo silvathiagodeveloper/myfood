@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUpdateCategoryRequest;
+use App\Http\Resources\V1\CategoryResource;
+use App\Http\Resources\V1\CategoryResourceCollection;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -14,28 +16,23 @@ class CategoryController extends Controller
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->repository = $categoryRepository;
-        $this->middleware("can:categories.show", ['only' => ['index','show','search']]);
+        /*$this->middleware("can:categories.show", ['only' => ['index','show','search']]);
         $this->middleware("can:categories.create", ['only' => ['create','store']]);
         $this->middleware("can:categories.edit", ['only' => ['edit','update']]);
-        $this->middleware("can:categories.destroy", ['only' => ['destroy']]);
+        $this->middleware("can:categories.destroy", ['only' => ['destroy']]);*/
     }
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->repository->getAllPaginate(config('constants.max_paginate'));
+        $perPage = (int) ($request->per_page ?? config('constants.max_paginate'));
+        $categories = $this->repository->getAllPaginate($perPage);
 
-        return view('admin.pages.categories.index', [
-            'categories' => $categories
-        ]);
+        return new CategoryResourceCollection($categories);
     }
 
-    public function search(Request $request)
+    public function show($uuid) 
     {
-        $categories = $this->repository->search($request->filter,config('constants.max_paginate'));
-        $filters = $request->except('_token');
-        return view('admin.pages.categories.index', [
-            'categories' => $categories,
-            'filters' => $filters
-        ]);
+        $category = $this->repository->getByUrl($uuid);
+        return new CategoryResource($category);
     }
 
     public function create()
@@ -48,14 +45,6 @@ class CategoryController extends Controller
         $model = $this->repository->create($request->all());
 
         return redirect()->route('categories.index');
-    }
-
-    public function show($url) 
-    {
-        $category = $this->repository->getByUrl($url);
-        return view('admin.pages.categories.show',[
-            'category' => $category
-        ]);
     }
 
     public function destroy($id) 
