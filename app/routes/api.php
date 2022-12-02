@@ -17,14 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-Route::get('/tenants/{uuid}', [TenantController::class, 'show']);
-Route::get('/tenants', [TenantController::class, 'index']);
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::get('/categories/{url}', [CategoryController::class, 'show']);
-Route::get('/categories', [CategoryController::class, 'index']);
-
-Route::get('/clients/{id}', [ClientController::class, 'show']);
+Route::post('/clients/auth', [ClientController::class, 'auth']);
 Route::post('/clients', [ClientController::class, 'store']);
+
+Route::middleware(['auth:sanctum'])
+     ->group(function () {
+        Route::get('/tenants/{uuid}', [TenantController::class, 'show']);
+        Route::get('/tenants', [TenantController::class, 'index']);
+     });
+
+Route::middleware(['auth:sanctum', 'tenant.set', 'tenant.forget'])
+     ->group(function () {
+        Route::get('/clients/auth', [ClientController::class, 'me']);
+        Route::get('/clients/logout', [ClientController::class, 'logout']);
+        
+        Route::get('/categories/{url}', [CategoryController::class, 'show']);
+        Route::get('/categories', [CategoryController::class, 'index']);
+     });

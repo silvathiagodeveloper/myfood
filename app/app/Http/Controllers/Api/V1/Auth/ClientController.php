@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AuthClientRequest;
 use App\Http\Requests\Admin\StoreClientRequest;
 use App\Http\Resources\V1\ClientResource;
 use App\Interfaces\Admin\ClientRepositoryInterface;
@@ -17,17 +18,33 @@ class ClientController extends Controller
         $this->repository = $clientRepository;
     }
 
-    public function show($id) 
-    {
-        $client = $this->repository->getById($id);
-        return new ClientResource($client);
-    }
-
     public function store(StoreClientRequest $request) 
     {
         $model = $this->repository->create($request->all());
 
         return new ClientResource($model);
+    }
+
+    public function auth(AuthClientRequest $request) 
+    {
+        $token = $this->repository->auth($request->email ?? '', $request->password ?? '', $request->device_name ?? '');
+
+        return response()->json(['token' => $token]);
+    }
+
+    public function me(Request $request) 
+    {
+        $client = $request->user();
+
+        return new ClientResource($client);
+    }
+
+    public function logout(Request $request) 
+    {
+        $client = $request->user();
+        $client->tokens()->delete();
+
+        return response()->json(['message' => 'out'],204);
     }
 /*
     public function destroy($id) 

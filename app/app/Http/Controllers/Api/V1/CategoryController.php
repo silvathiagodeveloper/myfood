@@ -16,10 +16,6 @@ class CategoryController extends Controller
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->repository = $categoryRepository;
-        /*$this->middleware("can:categories.show", ['only' => ['index','show','search']]);
-        $this->middleware("can:categories.create", ['only' => ['create','store']]);
-        $this->middleware("can:categories.edit", ['only' => ['edit','update']]);
-        $this->middleware("can:categories.destroy", ['only' => ['destroy']]);*/
     }
     public function index(Request $request)
     {
@@ -33,39 +29,5 @@ class CategoryController extends Controller
     {
         $category = $this->repository->getByUrl($url);
         return new CategoryResource($category);
-    }
-
-    public function create()
-    {
-        return view('admin.pages.categories.create');
-    }
-
-    public function store(StoreUpdateCategoryRequest $request) 
-    {
-        $model = $this->repository->create($request->all());
-
-        return redirect()->route('categories.index');
-    }
-
-    public function destroy($id) 
-    {
-        $this->repository->delete($id);
-        return redirect()->route('categories.index');          
-    }
-
-    public function edit($url) 
-    {
-        $category = $this->repository->getByUrl($url);
-
-        return view('admin.pages.categories.edit',[
-            'category' => $category
-        ]);
-    }
-
-    public function update(StoreUpdateCategoryRequest $request, int $id) 
-    {
-        $this->repository->update($id, $request->except(['_token','_method']));
-
-        return redirect()->route('categories.index');
     }
 }
