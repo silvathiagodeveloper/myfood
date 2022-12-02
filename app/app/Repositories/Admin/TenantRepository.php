@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Interfaces\Admin\TenantRepositoryInterface;
 use App\Models\Admin\Tenant;
 use App\Repositories\BaseRepository;
+use Brick\Math\BigInteger;
 
 class TenantRepository extends BaseRepository implements TenantRepositoryInterface
 {
@@ -19,5 +20,11 @@ class TenantRepository extends BaseRepository implements TenantRepositoryInterfa
                     ->where('name','LIKE', "%{$filter}%")
                     ->orWhere('cnpj','LIKE', "%{$filter}%")
                     ->paginate($qtty);
+    }
+
+    public function getByUuid(string $uuid) 
+    {
+        return $this->modelName::where('uuid',"{$uuid}")
+                                ->firstOrFail();
     }
 }

@@ -7,6 +7,7 @@ use App\Interfaces\Admin\ACL\ProfilePermissionRepositoryInterface;
 use App\Interfaces\Admin\ACL\RolePermissionRepositoryInterface;
 use App\Interfaces\Admin\ACL\UserRoleRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
+use App\Interfaces\Admin\ClientRepositoryInterface;
 use App\Interfaces\Admin\DetailPlanRepositoryInterface;
 use App\Interfaces\Admin\PermissionRepositoryInterface;
 use App\Interfaces\Admin\PlanRepositoryInterface;
@@ -22,6 +23,7 @@ use App\Repositories\Admin\ACL\ProfilePermissionRepository;
 use App\Repositories\Admin\ACL\RolePermissionRepository;
 use App\Repositories\Admin\ACL\UserRoleRepository;
 use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\ClientRepository;
 use App\Repositories\Admin\DetailPlanRepository;
 use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\PlanRepository;
@@ -58,6 +60,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(RolePermissionRepositoryInterface::class, RolePermissionRepository::class);
         $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
+        $this->app->bind(ClientRepositoryInterface::class, ClientRepository::class);
     }
 
     /**
