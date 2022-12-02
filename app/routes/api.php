@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\ClientController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\TenantController;
 use Illuminate\Http\Request;
@@ -22,4 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/tenants/{uuid}', [TenantController::class, 'show']);
 Route::get('/tenants', [TenantController::class, 'index']);
 
+Route::get('/categories/{url}', [CategoryController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
+
+Route::get('/clients/{id}', [ClientController::class, 'show']);
+Route::post('/clients', [ClientController::class, 'store']);
