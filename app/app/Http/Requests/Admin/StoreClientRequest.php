@@ -31,10 +31,6 @@ class StoreClientRequest extends FormRequest
             'password'  => ['required', 'confirmed', 'max:16', Rules\password::defaults()],
         ];
 
-        if($this->method() == 'PUT') {
-            $rules['password'] = ['nullable', 'confirmed', 'max:16', Rules\password::defaults()];
-        }
-
         return $rules;
     }
 }

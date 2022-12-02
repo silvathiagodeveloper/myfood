@@ -1,0 +1,15 @@
+{
+	"id": "c7f6f540-df84-4ee6-a022-7bef68954422",
+	"name": "Myfood",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-12-02T14:49:45.061Z",
+	"_postman_exported_using": "Postman/10.5.7"
+}
