@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Api;
 
-use App\Models\Client;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules;
 
-class StoreClientRequest extends FormRequest
+class AuthClientRequest extends FormRequest
 {
     /**
      * Determine if the client is authorized to make this request.
@@ -26,9 +24,9 @@ class StoreClientRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'      => "required|min:3|max:255",
-            'email'     => "required|string|email|max:255|unique:clients,email",
-            'password'  => ['required', 'confirmed', 'max:16', Rules\password::defaults()],
+            'email'     => "required|email",
+            'password'  => "required",
+            'device_name'  => "required",
         ];
 
         return $rules;

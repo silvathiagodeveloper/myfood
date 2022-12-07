@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Admin\Category;
+use App\Models\Admin\Order;
 use App\Models\Admin\Plan;
 use App\Models\Admin\Product;
 use App\Models\Admin\Table;
@@ -37,5 +38,6 @@ class AppServiceProvider extends ServiceProvider
         Category::observe([UrlObserver::class, UuidObserver::class]);
         Product::observe([UrlObserver::class, UuidObserver::class]);
         Table::observe([UrlObserver::class, UuidObserver::class]);
+        Order::observe(UuidObserver::class);
     }
 }

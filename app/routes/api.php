@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\ClientController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ProductCategoryController;
 use App\Http\Controllers\Api\V1\TenantController;
@@ -47,4 +48,8 @@ Route::middleware(['auth:sanctum', 'tenant.set', 'tenant.forget'])
       Route::get('/products',       [ProductController::class, 'index']);
 
       Route::get('/categories/{uuid}/products', [ProductCategoryController::class, 'products']);
+
+      Route::get('/orders', [OrderController::class, 'index']);
+      Route::post('/orders', [OrderController::class, 'store']);
+      Route::get('/orders/{uuid}', [OrderController::class, 'show']);
      });
