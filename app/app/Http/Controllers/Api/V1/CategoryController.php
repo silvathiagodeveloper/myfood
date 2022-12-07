@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreUpdateCategoryRequest;
 use App\Http\Resources\V1\CategoryResource;
 use App\Http\Resources\V1\CategoryResourceCollection;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
