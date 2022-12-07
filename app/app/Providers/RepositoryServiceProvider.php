@@ -9,6 +9,7 @@ use App\Interfaces\Admin\ACL\UserRoleRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ClientRepositoryInterface;
 use App\Interfaces\Admin\DetailPlanRepositoryInterface;
+use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Interfaces\Admin\PermissionRepositoryInterface;
 use App\Interfaces\Admin\PlanRepositoryInterface;
 use App\Interfaces\Admin\ProductCategoryRepositoryInterface;
@@ -25,6 +26,7 @@ use App\Repositories\Admin\ACL\UserRoleRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ClientRepository;
 use App\Repositories\Admin\DetailPlanRepository;
+use App\Repositories\Admin\OrderRepository;
 use App\Repositories\Admin\PermissionRepository;
 use App\Repositories\Admin\PlanRepository;
 use App\Repositories\Admin\ProductCategoryRepository;
@@ -61,6 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RolePermissionRepositoryInterface::class, RolePermissionRepository::class);
         $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
         $this->app->bind(ClientRepositoryInterface::class, ClientRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
     }
 
     /**

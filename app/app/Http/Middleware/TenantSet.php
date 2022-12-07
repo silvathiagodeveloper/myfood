@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
+use App\Exceptions\TenantTokenException;
 use App\Repositories\Admin\TenantRepository;
-use Closure;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Closure;
 
 class TenantSet
 {
@@ -20,10 +20,16 @@ class TenantSet
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        if(!empty($request->tenant))
+        if(empty($request->token_company))
         {
+            throw new TenantTokenException('token_company não informado', 404);
+        } else {
             $tenantRep = new TenantRepository();
-            $tenant = $tenantRep->getByUuid($request->tenant);
+            try {
+                $tenant = $tenantRep->getByUuid($request->token_company);
+            } catch(ModelNotFoundException $e) {
+                throw new TenantTokenException('token_company inválido', 404);
+            }
             $user = $request->user();
             $user->tenant_id = $tenant->id;
             $oldUser = session()->get('user');

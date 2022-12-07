@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Observers\Admin;
+namespace App\Observers;
 
-use App\Observers\UrlObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class TenantObserver extends UrlObserver
+class UuidObserver
 {
     /**
      * Handle the Tenant "created" event.
@@ -17,6 +16,5 @@ class TenantObserver extends UrlObserver
     public function creating(Model $model)
     {
         $model->uuid = Str::uuid();
-        parent::creating($model);
     }
 }

@@ -2,11 +2,9 @@
 
 namespace App\Interfaces\Admin;
 
-use App\Interfaces\BaseRepositoryInterface;
+use App\Interfaces\UrlUuidRepositoryInterface;
 
-interface TableRepositoryInterface extends BaseRepositoryInterface
+interface TableRepositoryInterface extends UrlUuidRepositoryInterface
 {
-    public function getByUrl(string $url);
-
     public function search(string $fiter = null, int $qtty = 15);
 }

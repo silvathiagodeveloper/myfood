@@ -20,6 +20,8 @@ class TenantScope implements Scope
     {
         $tenantManager = app(TenantManager::class);
         $tenantId = $tenantManager->getTenantId();
-        $builder->where('tenant_id', $tenantId);
+        if (!empty($tenantId)) {
+            $builder->where('tenant_id', $tenantId);
+        }
     }
 }

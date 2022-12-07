@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AuthClientRequest;
-use App\Http\Requests\Admin\StoreClientRequest;
+use App\Http\Requests\Api\AuthClientRequest;
+use App\Http\Requests\Api\StoreClientRequest;
 use App\Http\Resources\V1\ClientResource;
 use App\Interfaces\Admin\ClientRepositoryInterface;
 use Illuminate\Http\Request;

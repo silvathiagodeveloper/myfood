@@ -4,18 +4,13 @@ namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Models\Admin\Category;
-use App\Repositories\BaseRepository;
+use App\Repositories\UrlUuidRepository;
 
-class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
+class CategoryRepository extends UrlUuidRepository implements CategoryRepositoryInterface
 {
     public function __construct()
     {
         $this->modelName = Category::class;
-    }
-
-    public function getByUrl(string $url) 
-    {
-        return $this->modelName::where('url',$url)->firstOrFail();
     }
 
     public function search(string $filter = null, int $qtty = 15) 

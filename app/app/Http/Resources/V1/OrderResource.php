@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,10 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->uuid,
-            'name' => $this->name,
-            'url' => $this->url,
+            'total' => $this->total,
+            'table_id' => $this->table_id,
+            'tenant_id' => $this->tenant_id,
+            'status' => $this->status,
             'description' => $this->description,
             'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
         ];

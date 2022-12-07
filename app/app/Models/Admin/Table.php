@@ -6,5 +6,5 @@ use App\Models\BaseModel;
 
 class Table extends BaseModel
 {
-    protected $fillable = [ 'tenant_id', 'name', 'url'];
+    protected $fillable = [ 'tenant_id', 'name', 'url', 'uuid'];
 }

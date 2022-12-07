@@ -2,21 +2,15 @@
 
 namespace App\Repositories\Admin;
 
-use App\Exceptions\ProductWithDetailsException;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Models\Admin\Product;
-use App\Repositories\BaseRepository;
+use App\Repositories\UrlUuidRepository;
 
-class ProductRepository extends BaseRepository implements ProductRepositoryInterface
+class ProductRepository extends UrlUuidRepository implements ProductRepositoryInterface
 {
     public function __construct()
     {
         $this->modelName = Product::class;
-    }
-
-    public function getByUrl(string $url) 
-    {
-        return $this->modelName::where('url',$url)->firstOrFail();
     }
 
     public function search(string $filter = null, int $qtty = 15) 

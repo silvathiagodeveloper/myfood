@@ -18,8 +18,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => fake()->name(),
-            'url'       => fake()->unique()->domainName(),
+            'name'      => 'Cat '.fake()->name(),
+            //'url'       => fake()->unique()->domainName(),
             'description' => fake()->words(4,true),
             'tenant_id' => 1
         ];

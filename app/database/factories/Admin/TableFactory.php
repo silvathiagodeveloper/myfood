@@ -18,8 +18,8 @@ class TableFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => fake()->name(),
-            'url'       => fake()->unique()->domainName(),
+            'name'      => 'Mes '.fake()->name(),
+            //'url'       => fake()->unique()->domainName(),
             'tenant_id' => 1
         ];
     }

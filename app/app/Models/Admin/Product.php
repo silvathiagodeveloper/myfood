@@ -6,7 +6,7 @@ use App\Models\BaseModel;
 
 class Product extends BaseModel
 {
-    protected $fillable = ['tenant_id', 'name', 'url', 'price', 'description', 'image'];
+    protected $fillable = ['tenant_id', 'name', 'url', 'price', 'description', 'image', 'uuid'];
 
     public function scopeFilter($q, $filter) 
     {
