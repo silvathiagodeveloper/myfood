@@ -16,9 +16,9 @@ class TenantResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->uuid,
             'name' => $this->name,
             'logo' => $this->logo ? url("storage/{$this->logo}") : '',
-            'uuid' => $this->uuid,
             'active' => $this->active,
             'email' => $this->email,
             'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),

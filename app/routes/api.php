@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\V1\Auth\ClientController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\ProductCategoryController;
 use App\Http\Controllers\Api\V1\TenantController;
 use App\Http\Controllers\Api\V1\TableController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +42,9 @@ Route::middleware(['auth:sanctum', 'tenant.set', 'tenant.forget'])
 
       Route::get('/tables/{url}', [TableController::class, 'show']);
       Route::get('/tables',       [TableController::class, 'index']);
+
+      Route::get('/products/{url}', [ProductController::class, 'show']);
+      Route::get('/products',       [ProductController::class, 'index']);
+
+      Route::get('/categories/{url}/products', [ProductCategoryController::class, 'products']);
      });
