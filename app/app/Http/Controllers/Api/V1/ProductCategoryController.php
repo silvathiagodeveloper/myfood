@@ -23,10 +23,10 @@ class ProductCategoryController extends Controller
         $this->productCategoryRepository = $productCategoryRepository;
     }
 
-    public function products(Request $request, string $urlCategory)
+    public function products(Request $request, string $uuidCategory)
     {
         $perPage = (int) ($request->per_page ?? config('constants.max_paginate'));
-        $category = $this->categoryRepository->getByUrl($urlCategory);
+        $category = $this->categoryRepository->getByUuid($uuidCategory);
         $products = $this->productCategoryRepository->getProductsPaginate($category, $perPage);
 
         return new ProductResourceCollection($products);

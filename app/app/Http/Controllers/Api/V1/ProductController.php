@@ -24,9 +24,9 @@ class ProductController extends Controller
         return new ProductResourceCollection($products);
     }
 
-    public function show($url) 
+    public function show(string $uuid) 
     {
-        $product = $this->repository->getByUrl($url);
+        $product = $this->repository->getByUuid($uuid);
         return new ProductResource($product);
     }
 }

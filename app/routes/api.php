@@ -37,14 +37,14 @@ Route::middleware(['auth:sanctum'])
 
 Route::middleware(['auth:sanctum', 'tenant.set', 'tenant.forget'])
      ->group(function () {       
-      Route::get('/categories/{url}', [CategoryController::class, 'show']);
+      Route::get('/categories/{uuid}', [CategoryController::class, 'show']);
       Route::get('/categories',       [CategoryController::class, 'index']);
 
-      Route::get('/tables/{url}', [TableController::class, 'show']);
+      Route::get('/tables/{uuid}', [TableController::class, 'show']);
       Route::get('/tables',       [TableController::class, 'index']);
 
-      Route::get('/products/{url}', [ProductController::class, 'show']);
+      Route::get('/products/{uuid}', [ProductController::class, 'show']);
       Route::get('/products',       [ProductController::class, 'index']);
 
-      Route::get('/categories/{url}/products', [ProductCategoryController::class, 'products']);
+      Route::get('/categories/{uuid}/products', [ProductCategoryController::class, 'products']);
      });

@@ -4,18 +4,13 @@ namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\TableRepositoryInterface;
 use App\Models\Admin\Table;
-use App\Repositories\BaseRepository;
+use App\Repositories\UrlUuidRepository;
 
-class TableRepository extends BaseRepository implements TableRepositoryInterface
+class TableRepository extends UrlUuidRepository implements TableRepositoryInterface
 {
     public function __construct()
     {
         $this->modelName = Table::class;
-    }
-
-    public function getByUrl(string $url) 
-    {
-        return $this->modelName::where('url',$url)->firstOrFail();
     }
 
     public function search(string $filter = null, int $qtty = 15) 

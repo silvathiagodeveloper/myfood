@@ -24,9 +24,9 @@ class TableController extends Controller
         return new TableResourceCollection($tables);
     }
 
-    public function show($url) 
+    public function show(string $uuid) 
     {
-        $table = $this->repository->getByUrl($url);
+        $table = $this->repository->getByUuid($uuid);
         return new TableResource($table);
     }
 }

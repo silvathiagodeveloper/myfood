@@ -24,9 +24,9 @@ class CategoryController extends Controller
         return new CategoryResourceCollection($categories);
     }
 
-    public function show($url) 
+    public function show(string $uuid) 
     {
-        $category = $this->repository->getByUrl($url);
+        $category = $this->repository->getByUuid($uuid);
         return new CategoryResource($category);
     }
 }
