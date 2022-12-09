@@ -49,6 +49,7 @@ class OrderService
                 'description'  => $order['description'] ?? null
             ]
         );
+        $this->orderRepository->createProducts($order, $products);
         return $order;
     }
 
@@ -93,6 +94,7 @@ class OrderService
         }
         $arrProducts = $this->productRepository->getAllFilteredByUuid(array_keys($products));
         foreach($arrProducts as $product) {
+            $products[$product->uuid]['id'] = $product->id;
             $products[$product->uuid]['price'] = $product->price;
         }
         return $products;

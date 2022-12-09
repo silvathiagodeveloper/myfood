@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Models\Admin\Order;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
@@ -24,5 +25,17 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     {
         return $this->modelName::where('uuid',"{$uuid}")
                                 ->firstOrFail();
+    }
+
+    public function createProducts(Order $order, array $products)
+    {
+        $orderProducts = [];
+        foreach($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price']
+            ];
+        }
+        $order->products()->attach($orderProducts);
     }
 }

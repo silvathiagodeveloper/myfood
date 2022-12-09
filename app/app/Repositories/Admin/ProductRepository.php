@@ -29,6 +29,7 @@ class ProductRepository extends UrlUuidRepository implements ProductRepositoryIn
 
         return $this->modelName::latest()
                     ->whereIn('uuid', $filter)
+                    ->get()
                     ->all();
     }
 
