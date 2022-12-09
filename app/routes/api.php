@@ -34,6 +34,8 @@ Route::middleware(['auth:sanctum'])
 
          Route::get('/tenants/{uuid}', [TenantController::class, 'show']);
          Route::get('/tenants', [TenantController::class, 'index']);
+
+         Route::get('/my-orders', [OrderController::class, 'myOrders']);
      });
 
 Route::middleware(['auth:sanctum', 'tenant.set', 'tenant.forget'])

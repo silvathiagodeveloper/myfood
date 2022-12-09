@@ -21,6 +21,15 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
                     ->paginate($qty);
     }
 
+    public function getAllFilteredPaginate(array $filter = null, int $qty = 15)
+    {
+        $query = $this->modelName::latest();
+        foreach($filter as $field => $value) {
+            $query = $query->where($field, $value);
+        }
+        return $query->paginate($qty);
+    }
+
     public function getByUuid(string $uuid) 
     {
         return $this->modelName::where('uuid',"{$uuid}")

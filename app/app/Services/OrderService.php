@@ -31,6 +31,13 @@ class OrderService
         return $this->orderRepository->getAllPaginate($perPage);
     }
 
+    public function getByClient($perPage = null)
+    {
+        $idClient = $this->getClientId();
+        $perPage = (int) ($perPage ?? config('constants.max_paginate'));
+        return $this->orderRepository->getAllFilteredPaginate(['client_id' => $idClient], $perPage);
+    }
+
     public function getByUuid(string $uuid) 
     {
         return $this->orderRepository->getByUuid($uuid);
