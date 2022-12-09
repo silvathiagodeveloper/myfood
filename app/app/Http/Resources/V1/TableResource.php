@@ -20,7 +20,7 @@ class TableResource extends JsonResource
             'name' => $this->name,
             'url' => $this->url,
             'description' => $this->description,
-            'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
+            'date_created' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }
