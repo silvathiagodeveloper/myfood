@@ -2,11 +2,10 @@
 
 namespace App\Interfaces\Admin;
 
-use App\Interfaces\BaseRepositoryInterface;
+use App\Interfaces\UrlUuidRepositoryInterface;
 
-interface ProductRepositoryInterface extends BaseRepositoryInterface
+interface ProductRepositoryInterface extends UrlUuidRepositoryInterface
 {
-    public function getByUrl(string $url);
-
-    public function search(string $fiter = null, int $qtty = 15);
+    public function getAllFilteredByUuid(array $filter = null);
+    public function search(string $fiter = null, int $qty = 15);
 }

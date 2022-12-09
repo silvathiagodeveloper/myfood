@@ -19,13 +19,13 @@ class RolePermissionRepository extends BaseRepository implements RolePermissionR
         return $role->permissions();
     }
 
-    public function getPermissionsPaginate(Role $role, int $qtty = 15, string $filter = null) 
+    public function getPermissionsPaginate(Role $role, int $qty = 15, string $filter = null) 
     {
         $return = $role->permissions();
         if(isset($filter)) {
             $return = $return->where('permissions.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
     public function attachPermissions(int $id, array $permissions)
@@ -48,7 +48,7 @@ class RolePermissionRepository extends BaseRepository implements RolePermissionR
         return $role;
     }
 
-    public function getPermissionsAvailable(int $roleId, int $qtty = 15, string $filter = null)
+    public function getPermissionsAvailable(int $roleId, int $qty = 15, string $filter = null)
     {
         $return = Permission::latest();
         if(isset($filter)) {
@@ -60,15 +60,15 @@ class RolePermissionRepository extends BaseRepository implements RolePermissionR
                                         ->where('role_permission.role_id', $roleId);
                                 });
 
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
-    public function getRolesPaginate(Permission $permission, int $qtty = 15, string $filter = null) 
+    public function getRolesPaginate(Permission $permission, int $qty = 15, string $filter = null) 
     {
         $return = $permission->roles();
         if(isset($filter)) {
             $return = $return->where('roles.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

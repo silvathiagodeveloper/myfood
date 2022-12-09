@@ -18,8 +18,8 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => fake()->name(),
-            'url'       => fake()->unique()->domainName(),
+            'name'      => 'Prod '.fake()->name(),
+            //'url'       => fake()->unique()->domainName(),
             'price'     => fake()->randomFloat(2,10,50000),
             'description' => fake()->words(4,true),
             'tenant_id' => 1

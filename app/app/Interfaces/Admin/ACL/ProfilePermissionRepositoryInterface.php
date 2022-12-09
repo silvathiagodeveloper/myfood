@@ -10,13 +10,13 @@ interface ProfilePermissionRepositoryInterface extends BaseRepositoryInterface
 {
     public function getPermissions(Profile $profile);
 
-    public function getPermissionsPaginate(Profile $profile, int $qtty = 15, string $filter = null);
+    public function getPermissionsPaginate(Profile $profile, int $qty = 15, string $filter = null);
 
     public function attachPermissions(int $id, array $permissions);
 
     public function detachPermissions(int $id, array $permissions);
 
-    public function getPermissionsAvailable(int $profileId, int $qtty = 15, string $filter = null);
+    public function getPermissionsAvailable(int $profileId, int $qty = 15, string $filter = null);
 
-    public function getProfilesPaginate(Permission $permissao, int $qtty = 15, string $filter = null);
+    public function getProfilesPaginate(Permission $permissao, int $qty = 15, string $filter = null);
 }

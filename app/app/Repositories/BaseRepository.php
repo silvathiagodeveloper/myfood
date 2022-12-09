@@ -46,9 +46,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $result->get();
     }
 
-    public function getAllPaginate(int $qtty = 15)
+    public function getAllPaginate(int $qty = 15)
     {
-        return $this->modelName::latest()->paginate($qtty);
+        return $this->modelName::latest()->paginate($qty);
     }
 
     public function getById(int $id) 

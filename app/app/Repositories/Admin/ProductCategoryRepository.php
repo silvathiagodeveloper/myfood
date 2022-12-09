@@ -19,13 +19,13 @@ class ProductCategoryRepository extends BaseRepository implements ProductCategor
         return $product->categories();
     }
 
-    public function getCategoriesPaginate(Product $product, int $qtty = 15, string $filter = null) 
+    public function getCategoriesPaginate(Product $product, int $qty = 15, string $filter = null) 
     {
         $return = $product->categories();
         if(isset($filter)) {
             $return = $return->where('categories.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
     public function attachCategories(int $id, array $categories)
@@ -55,7 +55,7 @@ class ProductCategoryRepository extends BaseRepository implements ProductCategor
         return $product;
     }
 
-    public function getCategoriesAvailable(int $productId, int $qtty = 15, string $filter = null)
+    public function getCategoriesAvailable(int $productId, int $qty = 15, string $filter = null)
     {
         $return = Category::latest();
         if(isset($filter)) {
@@ -67,15 +67,15 @@ class ProductCategoryRepository extends BaseRepository implements ProductCategor
                                         ->where('product_category.product_id', $productId);
                                 });
 
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
-    public function getProductsPaginate(Category $category, int $qtty = 15, string $filter = null) 
+    public function getProductsPaginate(Category $category, int $qty = 15, string $filter = null) 
     {
         $return = $category->products();
         if(isset($filter)) {
             $return = $return->where('products.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

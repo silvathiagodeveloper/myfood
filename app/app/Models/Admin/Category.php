@@ -6,7 +6,7 @@ use App\Models\BaseModel;
 
 class Category extends BaseModel
 {
-    protected $fillable = [ 'tenant_id', 'name', 'url','description'];
+    protected $fillable = [ 'tenant_id', 'name', 'url','description', 'uuid'];
 
     public function scopeFilter($q, $filter) 
     {

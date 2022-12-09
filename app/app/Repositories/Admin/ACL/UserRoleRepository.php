@@ -19,13 +19,13 @@ class UserRoleRepository extends BaseRepository implements UserRoleRepositoryInt
         return $user->roles();
     }
 
-    public function getRolesPaginate(User $user, int $qtty = 15, string $filter = null) 
+    public function getRolesPaginate(User $user, int $qty = 15, string $filter = null) 
     {
         $return = $user->roles();
         if(isset($filter)) {
             $return = $return->where('roles.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
     public function attachRoles(int $id, array $roles)
@@ -48,7 +48,7 @@ class UserRoleRepository extends BaseRepository implements UserRoleRepositoryInt
         return $user;
     }
 
-    public function getRolesAvailable(int $userId, int $qtty = 15, string $filter = null)
+    public function getRolesAvailable(int $userId, int $qty = 15, string $filter = null)
     {
         $return = Role::latest();
         if(isset($filter)) {
@@ -60,15 +60,15 @@ class UserRoleRepository extends BaseRepository implements UserRoleRepositoryInt
                                         ->where('user_role.user_id', $userId);
                                 });
 
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
-    public function getUsersPaginate(Role $role, int $qtty = 15, string $filter = null) 
+    public function getUsersPaginate(Role $role, int $qty = 15, string $filter = null) 
     {
         $return = $role->users();
         if(isset($filter)) {
             $return = $return->where('users.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

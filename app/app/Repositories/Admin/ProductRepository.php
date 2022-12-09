@@ -2,29 +2,35 @@
 
 namespace App\Repositories\Admin;
 
-use App\Exceptions\ProductWithDetailsException;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Models\Admin\Product;
-use App\Repositories\BaseRepository;
+use App\Repositories\UrlUuidRepository;
 
-class ProductRepository extends BaseRepository implements ProductRepositoryInterface
+class ProductRepository extends UrlUuidRepository implements ProductRepositoryInterface
 {
     public function __construct()
     {
         $this->modelName = Product::class;
     }
 
-    public function getByUrl(string $url) 
-    {
-        return $this->modelName::where('url',$url)->firstOrFail();
-    }
-
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('name','LIKE', "%{$filter}%")
                     ->orWhere('description','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
+    }
+
+    public function getAllFilteredByUuid(array $filter = null)
+    {
+        if (empty($filter)) {
+            return null;
+        }
+
+        return $this->modelName::latest()
+                    ->whereIn('uuid', $filter)
+                    ->get()
+                    ->all();
     }
 
     public function delete(int $id) 
