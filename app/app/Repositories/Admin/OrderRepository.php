@@ -13,11 +13,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $this->modelName = Order::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('status', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 
     public function getByUuid(string $uuid) 

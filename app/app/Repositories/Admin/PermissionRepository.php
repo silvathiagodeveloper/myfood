@@ -13,12 +13,12 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
         $this->modelName = Permission::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         $return = $this->modelName::latest();
         if(isset($filter)) {
             $return = $return->filter($filter);
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

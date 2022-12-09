@@ -8,5 +8,5 @@ interface PlanRepositoryInterface extends BaseRepositoryInterface
 {
     public function getByUrl(string $url);
 
-    public function search(string $fiter = null, int $qtty = 15);
+    public function search(string $fiter = null, int $qty = 15);
 }

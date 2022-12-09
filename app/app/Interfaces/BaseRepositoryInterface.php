@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface BaseRepositoryInterface
 {
     public function getAll(array $order = null, array $with = null);
-    public function getAllPaginate(int $qtty = 15);
+    public function getAllPaginate(int $qty = 15);
     public function getById(int $id);
     public function delete(int $id);
     public function create(array $details);
