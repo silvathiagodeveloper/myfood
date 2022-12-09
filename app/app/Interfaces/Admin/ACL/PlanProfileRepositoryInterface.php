@@ -10,13 +10,13 @@ interface PlanProfileRepositoryInterface extends BaseRepositoryInterface
 {
     public function getProfiles(Plan $plan);
 
-    public function getProfilesPaginate(Plan $plan, int $qtty = 15, string $filter = null);
+    public function getProfilesPaginate(Plan $plan, int $qty = 15, string $filter = null);
 
     public function attachProfiles(int $id, array $profiles);
 
     public function detachProfiles(int $id, array $profiles);
 
-    public function getProfilesAvailable(int $PlanId, int $qtty = 15, string $filter = null);
+    public function getProfilesAvailable(int $PlanId, int $qty = 15, string $filter = null);
 
-    public function getPlansPaginate(Profile $profile, int $qtty = 15, string $filter = null);
+    public function getPlansPaginate(Profile $profile, int $qty = 15, string $filter = null);
 }

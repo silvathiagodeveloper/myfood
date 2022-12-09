@@ -13,11 +13,11 @@ class ProfileRepository extends BaseRepository implements ProfileRepositoryInter
         $this->modelName = Profile::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('name','LIKE', "%{$filter}%")
                     ->orWhere('description','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 }

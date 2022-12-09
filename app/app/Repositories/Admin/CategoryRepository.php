@@ -13,11 +13,11 @@ class CategoryRepository extends UrlUuidRepository implements CategoryRepository
         $this->modelName = Category::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('name','LIKE', "%{$filter}%")
                     ->orWhere('description','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 }

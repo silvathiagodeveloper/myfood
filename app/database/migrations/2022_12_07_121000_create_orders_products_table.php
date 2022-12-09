@@ -23,7 +23,7 @@ return new class extends Migration
                   ->constrained('products')
                   ->onDelete('cascade');
             $table->float('price',12,2);
-            $table->float('qtty',12,2);
+            $table->float('qty',12,2);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('order_product');
     }
 };

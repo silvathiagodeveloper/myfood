@@ -19,13 +19,13 @@ class ProfilePermissionRepository extends BaseRepository implements ProfilePermi
         return $profile->permissions();
     }
 
-    public function getPermissionsPaginate(Profile $profile, int $qtty = 15, string $filter = null) 
+    public function getPermissionsPaginate(Profile $profile, int $qty = 15, string $filter = null) 
     {
         $return = $profile->permissions();
         if(isset($filter)) {
             $return = $return->where('permissions.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
     public function attachPermissions(int $id, array $permissions)
@@ -48,7 +48,7 @@ class ProfilePermissionRepository extends BaseRepository implements ProfilePermi
         return $profile;
     }
 
-    public function getPermissionsAvailable(int $profileId, int $qtty = 15, string $filter = null)
+    public function getPermissionsAvailable(int $profileId, int $qty = 15, string $filter = null)
     {
         $return = Permission::latest();
         if(isset($filter)) {
@@ -60,15 +60,15 @@ class ProfilePermissionRepository extends BaseRepository implements ProfilePermi
                                         ->where('profile_permission.profile_id', $profileId);
                                 });
 
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
-    public function getProfilesPaginate(Permission $permission, int $qtty = 15, string $filter = null) 
+    public function getProfilesPaginate(Permission $permission, int $qty = 15, string $filter = null) 
     {
         $return = $permission->profiles();
         if(isset($filter)) {
             $return = $return->where('profiles.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

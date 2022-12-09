@@ -7,48 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "List Tenants",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer {{token}}",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "http://myfood/api/v1/tenants",
-					"protocol": "http",
-					"host": [
-						"myfood"
-					],
-					"path": [
-						"api",
-						"v1",
-						"tenants"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Create Client",
 			"request": {
 				"method": "POST",
@@ -61,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"Cliente test 3\",\r\n    \"email\" : \"cliente@teste3.com\",\r\n    \"password\" : \"teste1234\",\r\n    \"password_confirmation\" : \"teste1234\"\r\n}",
+					"raw": "{\r\n    \"name\" : \"Cliente test\",\r\n    \"email\" : \"cliente@teste.com\",\r\n    \"password\" : \"teste1234\",\r\n    \"password_confirmation\" : \"teste1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,6 +43,28 @@
 		},
 		{
 			"name": "Auth Client",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData['token'];\r",
+							"pm.environment.set('token', jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -96,7 +76,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\" : \"cliente@teste3.com\",\r\n    \"password\" : \"teste1234\",\r\n    \"device_name\" : \"teste\"\r\n}",
+					"raw": "{\r\n    \"email\" : \"cliente@teste.com\",\r\n    \"password\" : \"teste1234\",\r\n    \"device_name\" : \"teste\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -224,6 +204,504 @@
 						"v1",
 						"clients",
 						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tenants",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/tenants",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tenants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/categories?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/categories/2b04531a-5e91-4c60-b0f7-c999ad07afa9?token_company=f4c5055d-ef7c-4e25-b311-b465ee8020bf",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories",
+						"2b04531a-5e91-4c60-b0f7-c999ad07afa9"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "f4c5055d-ef7c-4e25-b311-b465ee8020bf"
+						},
+						{
+							"key": "url",
+							"value": "bobby-gottlieb",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tables",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/tables?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tables"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Table",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/tables/thelma-batz?token_company=f4c5055d-ef7c-4e25-b311-b465ee8020bf",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tables",
+						"thelma-batz"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "f4c5055d-ef7c-4e25-b311-b465ee8020bf"
+						},
+						{
+							"key": "url",
+							"value": "bobby-gottlieb",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/products?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/products/mr.-hal-blick-i-v?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"mr.-hal-blick-i-v"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Products Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/categories/2b04531a-5e91-4c60-b0f7-c999ad07afa9/products?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories",
+						"2b04531a-5e91-4c60-b0f7-c999ad07afa9",
+						"products"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\" : \"Teste\",\r\n    \"products\" : [\r\n        {\r\n            \"qty\" : 1,\r\n            \"price\" : 2\r\n        },\r\n        {\r\n            \"qty\" : 2,\r\n            \"price\" : 3\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://myfood/api/v1/orders?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://myfood/api/v1/orders?token_company=a585c0c7-18fa-431c-a73e-d19310ff7e19",
+					"protocol": "http",
+					"host": [
+						"myfood"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "token_company",
+							"value": "a585c0c7-18fa-431c-a73e-d19310ff7e19"
+						}
 					]
 				}
 			},

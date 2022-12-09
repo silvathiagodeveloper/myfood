@@ -6,5 +6,5 @@ use App\Interfaces\UrlUuidRepositoryInterface;
 
 interface CategoryRepositoryInterface extends UrlUuidRepositoryInterface
 {
-    public function search(string $fiter = null, int $qtty = 15);
+    public function search(string $fiter = null, int $qty = 15);
 }

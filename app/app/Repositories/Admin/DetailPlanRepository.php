@@ -13,16 +13,16 @@ class DetailPlanRepository extends BaseRepository implements DetailPlanRepositor
         $this->modelName = DetailPlan::class;
     }
 
-    public function search(int $planId, string $filter = null, int $qtty = 15) 
+    public function search(int $planId, string $filter = null, int $qty = 15) 
     {
         return $this->modelName::planId($planId)
                     ->latest()
                     ->where('name','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 
-    public function getAllByPlanId(int $planId, int $qtty = 15)
+    public function getAllByPlanId(int $planId, int $qty = 15)
     {
-        return $this->modelName::planId($planId)->paginate($qtty);
+        return $this->modelName::planId($planId)->paginate($qty);
     }
 }

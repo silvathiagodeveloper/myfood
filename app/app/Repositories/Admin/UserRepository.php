@@ -14,12 +14,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->modelName = User::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->tenantId()
                     ->where('name','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 
     public function getAll(array $order = null, array $with = null) 
@@ -39,9 +39,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $result->get();
     }
 
-    public function getAllPaginate(int $qtty = 15)
+    public function getAllPaginate(int $qty = 15)
     {
-        return $this->modelName::latest()->tenantId()->paginate($qtty);
+        return $this->modelName::latest()->tenantId()->paginate($qty);
     }
 
     public function getById(int $id) 

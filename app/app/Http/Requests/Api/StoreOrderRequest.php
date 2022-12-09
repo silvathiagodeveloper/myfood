@@ -30,6 +30,8 @@ class StoreOrderRequest extends FormRequest
             'table' => "nullable|exists:tables,uuid",
             'description' => "nullable|max:500",
             'products' => "required",
+            'products.*.id' => "required|exists:products,uuid",
+            'products.*.qty' => "required|integer",
         ];
     }
 }

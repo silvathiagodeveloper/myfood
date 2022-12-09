@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Models\Admin\Order;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
@@ -13,16 +14,37 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $this->modelName = Order::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('status', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
+    }
+
+    public function getAllFilteredPaginate(array $filter = null, int $qty = 15)
+    {
+        $query = $this->modelName::latest();
+        foreach($filter as $field => $value) {
+            $query = $query->where($field, $value);
+        }
+        return $query->paginate($qty);
     }
 
     public function getByUuid(string $uuid) 
     {
         return $this->modelName::where('uuid',"{$uuid}")
                                 ->firstOrFail();
+    }
+
+    public function createProducts(Order $order, array $products)
+    {
+        $orderProducts = [];
+        foreach($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price']
+            ];
+        }
+        $order->products()->attach($orderProducts);
     }
 }

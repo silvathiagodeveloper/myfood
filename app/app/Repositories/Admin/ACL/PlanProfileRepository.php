@@ -19,13 +19,13 @@ class PlanProfileRepository extends BaseRepository implements PlanProfileReposit
         return $plan->profiles();
     }
 
-    public function getProfilesPaginate(Plan $plan, int $qtty = 15, string $filter = null) 
+    public function getProfilesPaginate(Plan $plan, int $qty = 15, string $filter = null) 
     {
         $return = $plan->profiles();
         if(isset($filter)) {
             $return = $return->where('profiles.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
     public function attachProfiles(int $id, array $profiles)
@@ -48,7 +48,7 @@ class PlanProfileRepository extends BaseRepository implements PlanProfileReposit
         return $plan;
     }
 
-    public function getProfilesAvailable(int $planId, int $qtty = 15, string $filter = null)
+    public function getProfilesAvailable(int $planId, int $qty = 15, string $filter = null)
     {
         $return = Profile::latest();
         if(isset($filter)) {
@@ -60,15 +60,15 @@ class PlanProfileRepository extends BaseRepository implements PlanProfileReposit
                                         ->where('plan_profile.plan_id', $planId);
                                 });
 
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 
-    public function getPlansPaginate(Profile $profile, int $qtty = 15, string $filter = null) 
+    public function getPlansPaginate(Profile $profile, int $qty = 15, string $filter = null) 
     {
         $return = $profile->plans();
         if(isset($filter)) {
             $return = $return->where('plans.name', 'LIKE', "%{$filter}%");
         }
-        return $return->paginate($qtty);
+        return $return->paginate($qty);
     }
 }

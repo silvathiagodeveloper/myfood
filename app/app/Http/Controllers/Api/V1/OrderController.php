@@ -25,6 +25,14 @@ class OrderController extends Controller
         return new OrderResourceCollection($orders);
     }
 
+    public function myOrders(Request $request)
+    {
+        $perPage = (int) ($request->per_page ?? config('constants.max_paginate'));
+        $orders = $this->orderService->getByClient($perPage);
+
+        return new OrderResourceCollection($orders);
+    }
+
     public function show($uuid) 
     {
         $order = $this->orderService->getByUuid($uuid);

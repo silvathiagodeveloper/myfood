@@ -58,6 +58,16 @@ class TableController extends Controller
         ]);
     }
 
+    public function qrcode($url) 
+    {
+        $table = $this->repository->getByUrl($url);
+        $tenant = auth()->user()->tenant;
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+        return view('admin.pages.tables.qrcode',[
+            'uri' => $uri
+        ]);
+    }
+
     public function destroy($id) 
     {
         $this->repository->delete($id);

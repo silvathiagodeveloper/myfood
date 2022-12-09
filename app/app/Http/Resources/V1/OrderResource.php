@@ -17,7 +17,7 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->uuid,
-            'total' => $this->total,
+            'total' => number_format($this->total,2,'.'),
             'table_id' => $this->table_id,
             'tenant_id' => $this->tenant_id,
             'status' => $this->status,

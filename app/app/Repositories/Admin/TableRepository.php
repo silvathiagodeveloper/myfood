@@ -13,10 +13,10 @@ class TableRepository extends UrlUuidRepository implements TableRepositoryInterf
         $this->modelName = Table::class;
     }
 
-    public function search(string $filter = null, int $qtty = 15) 
+    public function search(string $filter = null, int $qty = 15) 
     {
         return $this->modelName::latest()
                     ->where('name','LIKE', "%{$filter}%")
-                    ->paginate($qtty);
+                    ->paginate($qty);
     }
 }
