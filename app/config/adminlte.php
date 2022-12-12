@@ -360,6 +360,13 @@ return [
             'can'  => 'tables.show'
         ],
         [
+            'text' => 'Pedidos',
+            'url'  => 'admin/orders',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-utensils',
+            'can'  => 'orders.show'
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
