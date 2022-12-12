@@ -16,6 +16,22 @@ services:
                 reservations:
                     cpus: '0.25'
                     memory: 512M
+    redis:
+        image: redis:6.2-alpine
+        container_name: redis
+        ports:
+            - "6379:6379"
+        command: redis-server --save 20 1 --loglevel warning --requirepass secretpass
+        volumes:
+            - redis:/data
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
     php:
         container_name: php
         build:
@@ -82,3 +98,5 @@ services:
                     memory: 512M
 volumes:
     mysqldata: {}
+    redis:
+        driver: local
