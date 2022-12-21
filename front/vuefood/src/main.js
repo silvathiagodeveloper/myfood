@@ -1,4 +1,4 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import DefaultTemplate from './layouts/DefaultTemplate'
 
-createApp(App).mount('#app')
+createApp(DefaultTemplate).mount('#app')
