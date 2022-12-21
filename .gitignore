@@ -1,3 +1,4 @@
+# backend files
 /app/node_modules
 /app/public/build
 /app/public/hot
@@ -16,4 +17,30 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/front
+
+# frontend files
+/front/vuefood/.gitignore
+/front/vuefood/.DS_Store
+/front/vuefood/node_modules
+/front/vuefood/dist
+
+
+# local env files
+/front/vuefood/.env.local
+/front/vuefood/.env.*.local
+
+# Log files
+/front/vuefood/npm-debug.log*
+/front/vuefood/yarn-debug.log*
+/front/vuefood/yarn-error.log*
+/front/vuefood/pnpm-debug.log*
+
+# Editor directories and files
+/front/vuefood/.idea
+/front/vuefood/.vscode
+/front/vuefood/*.suo
+/front/vuefood/*.ntvs*
+/front/vuefood/*.njsproj
+/front/vuefood/*.sln
+/front/vuefood/*.sw?
+
