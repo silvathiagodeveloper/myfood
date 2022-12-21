@@ -96,6 +96,23 @@ services:
                 reservations:
                     cpus: '0.25'
                     memory: 512M
+    node:
+        container_name: node
+        build:
+            context: .
+            dockerfile: ./docker/node.Dockerfile
+        volumes:
+            - ./front:/app
+        ports: 
+            - "8081:8081"
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 512M
+                reservations:
+                    cpus: '0.25'
+                    memory: 512M
 volumes:
     mysqldata: {}
     redis:
