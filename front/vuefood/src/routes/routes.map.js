@@ -1,6 +1,8 @@
 import Home from '@/pages/Home'
 import Products from '@/pages/Products'
 import Cart from '@/pages/Cart'
+import Login from '@/pages/Auth/Login'
+import Register from '@/pages/Auth/Register'
 
 const routes = [
     {
@@ -21,6 +23,22 @@ const routes = [
                 path: '/carrinho',
                 component: Cart,
                 name: 'cart'
+            }
+        ]
+    },
+    {
+        path: '/',
+        component: () => import('@/layouts/AuthTemplate'),
+        children: [
+            {
+                path: '/entrar',
+                component: Login,
+                name: 'login'
+            },
+            {
+                path: '/cadastrar',
+                component: Register,
+                name: 'register'
             }
         ]
     }
