@@ -21,7 +21,7 @@ class TenantResource extends JsonResource
             'logo' => $this->logo ? url("storage/{$this->logo}") : '',
             'active' => $this->active,
             'email' => $this->email,
-            'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
+            'date_created' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }

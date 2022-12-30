@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -358,6 +358,13 @@ return [
             'icon_color' => 'white',
             'icon' => 'fas fa-chair',
             'can'  => 'tables.show'
+        ],
+        [
+            'text' => 'Pedidos',
+            'url'  => 'admin/orders',
+            'icon_color' => 'white',
+            'icon' => 'fas fa-utensils',
+            'can'  => 'orders.show'
         ],
         [
             'text'    => 'multilevel',

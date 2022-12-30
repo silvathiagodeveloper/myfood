@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\OrderCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
 use App\Http\Resources\v1\OrderResource;
@@ -42,6 +43,7 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request) 
     {
         $order = $this->orderService->create($request->all());
+        broadcast(new OrderCreatedEvent($order));
         return new OrderResource($order);
     }
 }

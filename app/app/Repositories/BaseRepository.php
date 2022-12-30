@@ -70,4 +70,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return $this->modelName::findOrFail($id)->update($newDetails);
     }
+
+    public function count(array $filter = null)
+    {
+        return $this->modelName::count();
+    }
 }

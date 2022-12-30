@@ -18,7 +18,7 @@ class ClientResource extends JsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
-            'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
+            'date_created' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }

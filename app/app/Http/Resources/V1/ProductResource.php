@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'price' => $this->price,
             'image' => $this->image ? url("storage/{$this->image}") : '',
-            'date_created' => Carbon::parse($this->created_at)->format('d-m-Y'),
+            'date_created' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }
 }

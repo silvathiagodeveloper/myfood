@@ -11,4 +11,5 @@ interface BaseRepositoryInterface
     public function delete(int $id);
     public function create(array $details);
     public function update(int $id, array $newDetails);
+    public function count(array $filter = null);
 }
