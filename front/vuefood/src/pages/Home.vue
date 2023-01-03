@@ -84,9 +84,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   mounted() {
-    this.$store.dispatch('getTenants')
+    this.getTenants()
+  },
+
+  methods: {
+    ...mapActions([
+      'getTenants'
+    ])
   }
 }
 </script>
