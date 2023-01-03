@@ -108,11 +108,11 @@ services:
         deploy:
             resources:
                 limits:
-                    cpus: '0.50'
-                    memory: 512M
+                    cpus: '2'
+                    memory: 1024M
                 reservations:
-                    cpus: '0.25'
-                    memory: 512M
+                    cpus: '2'
+                    memory: 1024M
 volumes:
     mysqldata: {}
     redis:

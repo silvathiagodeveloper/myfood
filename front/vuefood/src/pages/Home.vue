@@ -82,3 +82,11 @@
 </div>
 <!-- /.row -->
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.$store.dispatch('getTenants')
+  }
+}
+</script>
