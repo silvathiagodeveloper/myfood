@@ -9,3 +9,5 @@ createApp(BaseTemplate)
     .use(router)
     .use(store)
     .mount('#app')
+
+store.dispatch('getMe')

@@ -14,7 +14,8 @@
                             </router-link>
                         </li>
                         <li class="nav-item nav-cart active">
-                            <router-link :to="{name: 'login'}" class="nav-link">Entrar
+                            <a v-if="me.name" class="nav-link">Olá {{  me.name }}(<span @click.prevent="logout">Sair</span>)</a>
+                            <router-link v-else :to="{name: 'login'}" class="nav-link">Entrar
                                 <i class="fas fa-user"></i>
                             </router-link>
                         </li>
@@ -25,3 +26,22 @@
         <br>
     </header>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+
+export default {
+
+    computed: {
+        ...mapState({
+            me: state => state.auth.me
+        })
+    },
+
+    methods: {
+        ...mapActions([
+            'logout'
+        ])
+    }
+}
+</script>
