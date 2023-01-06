@@ -6,7 +6,7 @@ const RESOURCE = 'tenants'
 
 export default {
     getTenants ({ commit }) {
-        //commit('SET_TENANTS', {teste : 'teste'}) //somente para testes
+        commit('SET_PRELOADER', true)
         const token = localStorage.getItem(TOKEN_NAME)
         if(!token) router.push({name: 'login'});
         return axios.get(`/${RESOURCE}`, {
@@ -15,5 +15,6 @@ export default {
             }
         })
         .then(response => commit('SET_TENANTS', response.data))
+        .finally(() => commit('SET_PRELOADER', false))
     }
 }
