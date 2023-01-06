@@ -9,14 +9,11 @@ export default {
         //commit('SET_TENANTS', {teste : 'teste'}) //somente para testes
         const token = localStorage.getItem(TOKEN_NAME)
         if(!token) router.push({name: 'login'});
-        axios.get(`/${RESOURCE}`, {
+        return axios.get(`/${RESOURCE}`, {
             headers: {
                 'Authorization': `Bearer ${ token }` 
             }
         })
-        .then(response => 
-            {
-                commit('SET_TENANTS', response.data)
-            })
+        .then(response => commit('SET_TENANTS', response.data))
     }
 }

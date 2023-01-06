@@ -51,6 +51,8 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css';
 
 export default {
 
@@ -90,20 +92,21 @@ export default {
 
             this.login(params)
                 .then((response) => {
-                    alert('Login realizado com sucesso!')
+                    toast.success('Login realizado com sucesso!');
                     this.$router.push({name: 'home'})
                 })
                 .catch(error =>  {
                     const errorResp = error.response 
                     if(errorResp.status === 422 || errorResp.status === 401) {
                         this.errors = Object.assign(this.errors, errorResp.data.errors)
-                        alert('Dados inválidos')
+                        toast.error('Dados inválidos!');
                         return;
                     }
-                    alert('Falha ao Autenticar')//this.$vToastify.error('Falha ao Registrar', 'Erro'))
+                    toast.error('Falha ao Autenticar');
                 })
                 .finally(() => this.loading = false)
         },
+
 
         resetError () {
             this.errors = {
