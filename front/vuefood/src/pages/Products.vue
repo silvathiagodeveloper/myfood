@@ -5,7 +5,8 @@
             
             
             <div class="list-categories">
-                <a href="#" class="list-categories__item" v-for="(category, index) in categories.data" :key="index">
+                <a href="#" v-for="(category, index) in categories.data" :key="index" @click.prevent="getFilterProducts(category.id)"
+                :class="['list-categories__item', {'active': categorySelected == category.id}]">
                     <div class="icon">
                         <i class="fas fa-pizza-slice"></i>
                     </div>
@@ -20,7 +21,7 @@
                 <div class="card--flat h-100">
                     <a href="#">
                         <div class="card-image">
-                            <img v-if="image" class="card-img-top" :src="image" alt=""/>
+                            <img v-if="product.image" class="card-img-top" :src="product.image" alt=""/>
                             <img v-else class="card-img-top" src="@/assets/imgs/pizza.png" alt=""/>
                         </div>
                     </a>
@@ -66,11 +67,29 @@ export default {
         })
     },
 
+    data() {
+        return {
+            categorySelected: ''
+        }
+    },
+
     methods: {
         ...mapActions([
             'getCategories',
-            'getProducts'
+            'getProducts',
+            'getProductsByCategory'
         ]),
-  }
+        getFilterProducts(categoryId) {
+            if(this.categorySelected == categoryId) {
+                this.categorySelected = ''
+                this.getProducts(this.tenant.id)
+                    .catch(response => { toast.error('Falha ao carregar produtos!') })
+            } else {
+                this.categorySelected = categoryId
+                this.getProductsByCategory({token_company: this.tenant.id, categoryId: categoryId})
+                   .catch(response => { toast.error('Falha ao carregar produtos!') })
+            }
+        }
+    }
 }
 </script>

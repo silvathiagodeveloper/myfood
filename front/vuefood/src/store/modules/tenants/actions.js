@@ -50,16 +50,16 @@ export default {
         .finally(() => commit('SET_PRELOADER', false))
     },
 
-    getProductsByCategory ({ commit }, token_company, id_category) {
+    getProductsByCategory ({ commit }, params) {
         commit('SET_PRELOADER', true)
         const token = localStorage.getItem(TOKEN_NAME)
         if(!token) router.push({name: 'login'});
-        return axios.get(`/${id_category}/products`, {
+        return axios.get(`/categories/${params.categoryId}/products`, {
             headers: {
                 'Authorization': `Bearer ${ token }` 
             },
             params: {
-                token_company: token_company
+                token_company: params.token_company
             }
         })
         .then(response => commit('SET_PRODUCTS', response.data))

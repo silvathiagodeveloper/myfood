@@ -295,6 +295,10 @@ body {
   background: #fbd560;
 }
 
+.active {
+  background-color: lightcoral;
+}
+
 .list-categories a:hover .icon {
   background: #fff;
   color:#000;
