@@ -1,13 +1,16 @@
 <template>
     <div>
-        <h1 class="my-4 title-tenant text-center">Nome do Tenant</h1>
+        <h1 class="my-4 title-tenant text-center">{{ tenant.name }}</h1>
         <div class="row">
             
             
             <div class="list-categories">
-            <a href="#" class="list-categories__item active"><div class="icon"><i class="fas fa-pizza-slice"></i> </div> <span> Pizza </span> </a>
-            <a href="#" class="list-categories__item active"><div class="icon"><i class="fas fa-hamburger"></i> </div> <span> Sanduiche </span> </a>
-            <a href="#" class="list-categories__item active"><div class="icon"><i class="fas fa-ice-cream"></i> </div> <span> Sorvetes </span> </a>
+                <a href="#" class="list-categories__item" v-for="(category, index) in categories.data" :key="index">
+                    <div class="icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <span> {{ category.name }} </span>
+                </a>
             </div>
 
         </div>
@@ -138,3 +141,35 @@
         <!-- /.row -->
     </div>
 </template>
+<script>
+import { mapActions, mapState, mapMutations } from 'vuex';
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css';
+
+export default {
+    props: ['company_token'],
+
+    created() {
+        if(this.tenant.name == "") {
+            return this.$router.push({name: 'home'})
+        }
+        this.getCategories(this.tenant.id)
+            .catch(response => { toast.error('Falha ao carregar categorias!') })
+    },
+
+    computed: {
+        ...mapState({
+            tenant: state=> state.tenants.selectedTenant,
+            categories: state => state.tenants.categories, 
+            products: state => state.tenants.products
+        })
+    },
+
+    methods: {
+        ...mapActions([
+            'getCategories',
+            'getProducts'
+        ]),
+  }
+}
+</script>

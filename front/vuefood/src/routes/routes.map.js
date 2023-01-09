@@ -15,9 +15,10 @@ const routes = [
                 name: 'home'
             },
             {
-                path: '/loja',
+                path: '/loja/:token_company',
                 component: Products,
-                name: 'products'
+                name: 'products',
+                props: true
             },
             {
                 path: '/carrinho',

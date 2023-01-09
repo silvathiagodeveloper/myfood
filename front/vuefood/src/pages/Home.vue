@@ -9,7 +9,7 @@
 
     <div class="col-lg-4 col-md-4 col-6 mb-4" v-for="(tenant, index) in tenants.data" :key="index">
       <div class="restaurant-card">
-        <a class="logo" href="vitrine-tenant.html">
+        <a class="logo" href="#" @click.prevent="goStoreTenant(tenant)">
           <img v-if="tenant.logo" 
             class="card-img-top" 
             :src="tenant.logo" 
@@ -21,7 +21,10 @@
         </a>
         <div class="restaurant-card-body">
           <h3>
-            <router-link :to="{name: 'products'}">{{ tenant.name }}</router-link>
+            <!-- <router-link :to="{name: 'products', params: {token_company: tenant.id}}">{{ tenant.name }}</router-link> -->
+            <a href="#" @click.prevent="goStoreTenant(tenant)">
+              {{ tenant.name }}
+            </a>
           </h3>
         </div>
       </div>
@@ -38,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css';
 
@@ -60,7 +63,16 @@ export default {
   methods: {
     ...mapActions([
       'getTenants'
-    ])
+    ]),
+
+    ...mapMutations({
+        setSelectedTenant: 'SET_SELECTED_TENANT'
+    }),
+
+    goStoreTenant(tenant) {
+      this.setSelectedTenant(tenant)
+      this.$router.push({name: 'products', params: {token_company: tenant.id}})
+    }
   }
 }
 </script>
